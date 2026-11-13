@@ -1,0 +1,3022 @@
+<!DOCTYPE html>
+<html lang="bg" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRIUNITY.STORE // Цифрови ключове, Fortnite V-Bucks, Minecraft & Steam</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['"Space Grotesk"', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: {
+                            950: '#07080c',
+                            900: '#0c0e15',
+                            850: '#111420',
+                            800: '#171b2b',
+                            700: '#232a42',
+                            600: '#343e61'
+                        },
+                        neon: {
+                            violet: '#8b5cf6',
+                            cyan: '#06b6d4',
+                            emerald: '#10b981',
+                            amber: '#f59e0b',
+                            pink: '#ec4899'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #07080c;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #232a42;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8b5cf6;
+        }
+        .glass-card {
+            background: rgba(17, 20, 32, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+        .glass-card:hover {
+            border-color: rgba(139, 92, 246, 0.4);
+            box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.15);
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.18) 0%, rgba(6, 182, 212, 0.08) 35%, transparent 70%);
+        }
+        .badge-pulse {
+            animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .4; }
+        }
+
+        /* CUSTOM ANIMATIONS: Main Page Entrance, Product Cards & Buy Flow */
+        @keyframes neonPageEntrance {
+            0% { opacity: 0; transform: translateY(24px) scale(0.98); filter: brightness(1.3) blur(4px); }
+            100% { opacity: 1; transform: translateY(0) scale(1); filter: brightness(1) blur(0px); }
+        }
+        .neon-page-animate {
+            animation: neonPageEntrance 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes cardNeonPulse {
+            0% { transform: translateY(0) scale(1); box-shadow: 0 0 0 rgba(6,182,212,0); }
+            50% { transform: translateY(-3px) scale(1.02); box-shadow: 0 0 20px rgba(139,92,246,0.3); }
+            100% { transform: translateY(-3px) scale(1.02); box-shadow: 0 10px 30px -10px rgba(6,182,212,0.4); }
+        }
+        .product-card-glow:hover {
+            animation: cardNeonPulse 0.4s ease forwards;
+        }
+
+        @keyframes buyButtonFlash {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,212,255,0.8); }
+            50% { transform: scale(0.95); box-shadow: 0 0 30px 10px rgba(139,92,246,0.7); filter: brightness(1.2); }
+            100% { transform: scale(1); box-shadow: 0 0 10px 2px rgba(0,212,255,0.4); }
+        }
+        .buy-action-animate {
+            animation: buyButtonFlash 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes checkoutSuccessPop {
+            0% { transform: scale(0.8); opacity: 0; filter: blur(8px); }
+            70% { transform: scale(1.05); opacity: 1; filter: blur(0px); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .checkout-success-animate {
+            animation: checkoutSuccessPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        /* Fly-to-Cart Particle Animation */
+        .flying-cart-item {
+            position: fixed;
+            z-index: 9999;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.95) 0%, rgba(6, 182, 212, 0.85) 100%);
+            box-shadow: 0 0 25px rgba(139, 92, 246, 0.8), 0 0 10px rgba(6, 182, 212, 0.6);
+            transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.25, 1), opacity 0.65s ease, scale 0.65s ease;
+            transform-origin: center center;
+        }
+
+        /* Cart Bounce and Glow Effect */
+        @keyframes cart-bounce {
+            0% { transform: scale(1); }
+            30% { transform: scale(1.3) rotate(-8deg); box-shadow: 0 0 25px rgba(139, 92, 246, 0.9); }
+            60% { transform: scale(0.9) rotate(4deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+        .cart-bounce-active {
+            animation: cart-bounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Badge Pop */
+        @keyframes badge-pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.6); background-color: #06b6d4; }
+            100% { transform: scale(1); }
+        }
+        .badge-pop-active {
+            animation: badge-pop 0.4s ease-out;
+        }
+
+        /* Toast notification animations */
+        @keyframes toast-in {
+            0% { transform: translateY(100%) scale(0.9); opacity: 0; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
+        }
+        .toast-animate-in {
+            animation: toast-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Cart Trigger Button Ripple Effect */
+        .cart-btn-click {
+            animation: cartBtnPress 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes cartBtnPress {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7); }
+            40% { transform: scale(0.92); box-shadow: 0 0 25px 6px rgba(139, 92, 246, 0.6); }
+            70% { transform: scale(1.08); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 transparent; }
+        }
+
+        /* Drawer Slide-in & Backdrop Transitions */
+        #cart-drawer {
+            transition: visibility 0.4s ease;
+        }
+        #cart-backdrop {
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #cart-panel {
+            transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s ease;
+            box-shadow: -15px 0 45px -10px rgba(139, 92, 246, 0.25);
+        }
+        #cart-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #8b5cf6, #06b6d4, #ec4899);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.8);
+        }
+
+        /* Staggered Item Entrance Animation */
+        @keyframes cartItemSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateX(40px) translateY(8px) scale(0.94);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0) translateY(0) scale(1);
+            }
+        }
+        .cart-item-animate {
+            animation: cartItemSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .cart-footer-animate {
+            animation: cartItemSlideIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+        }
+    </style>
+</head>
+<body class="bg-dark-950 text-slate-100 font-sans antialiased selection:bg-neon-violet selection:text-white min-h-screen flex flex-col justify-between">
+
+    <!-- Top Notice Bar -->
+    <div class="bg-gradient-to-r from-neon-violet/20 via-neon-cyan/20 to-neon-violet/20 border-b border-white/5 py-1.5 px-4 text-xs font-medium text-center flex items-center justify-center gap-3">
+        <span class="inline-flex items-center gap-1.5 text-neon-emerald font-semibold">
+            <span class="w-2 h-2 rounded-full bg-neon-emerald badge-pulse"></span>
+            СИСТЕМАТА РАБОТИ 24/7
+        </span>
+        <span class="hidden sm:inline text-slate-400">•</span>
+        <span class="hidden sm:inline text-slate-300">Мигновена доставка на ключ или акаунт на имейл и екран след плащане!</span>
+        <span class="text-neon-cyan font-bold bg-dark-900/60 px-2 py-0.5 rounded border border-white/10 hidden md:inline">🔥 100% ГАРАНЦИЯ</span>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-40 bg-dark-950/85 backdrop-blur-md border-b border-dark-700/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            
+            <!-- Logo (Now switches view to Home Page) -->
+            <button onclick="goToHomePage()" class="flex items-center gap-3 group shrink-0 text-left cursor-pointer focus:outline-none">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-neon-violet to-neon-cyan p-0.5 shadow-lg shadow-neon-violet/20 group-hover:scale-105 transition-transform">
+                    <div class="w-full h-full bg-dark-950 rounded-[10px] flex items-center justify-center">
+                        <i data-lucide="gamepad-2" class="w-6 h-6 text-neon-cyan"></i>
+                    </div>
+                </div>
+                <div>
+                    <div class="font-display font-bold text-xl sm:text-2xl tracking-wider text-white flex items-center">
+                        TRI<span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-neon-violet">UNITY</span>
+                        <span class="text-[10px] ml-1 px-1.5 py-0.5 bg-neon-violet/20 text-neon-violet rounded font-mono font-bold">.STORE</span>
+                    </div>
+                    <span class="text-[10px] tracking-wider text-slate-400 uppercase font-mono block -mt-1">GAMING MARKETPLACE</span>
+                </div>
+            </button>
+
+            <!-- Navigation Links (Начало / Каталог) -->
+            <div class="hidden lg:flex items-center gap-2">
+                <button onclick="goToHomePage()" id="nav-btn-home" class="px-3.5 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-dark-900 transition-colors">
+                    Начало
+                </button>
+                <button onclick="goToCatalogPage()" id="nav-btn-catalog" class="px-3.5 py-2 rounded-xl text-xs font-bold text-neon-cyan bg-dark-900 border border-dark-700 transition-colors">
+                    Всички Продукти
+                </button>
+            </div>
+
+            <!-- Search Bar (Desktop) -->
+            <div class="hidden md:flex flex-1 max-w-md mx-4">
+                <div class="relative w-full">
+                    <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-3.5 text-slate-400"></i>
+                    <input 
+                        type="text" 
+                        id="search-input" 
+                        oninput="handleSearch(this.value)" 
+                        placeholder="Търси V-Bucks, Minecraft акаунт, ключове за игри..." 
+                        class="w-full bg-dark-900 border border-dark-700 rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-neon-violet focus:ring-1 focus:ring-neon-violet transition-all"
+                    >
+                    <button id="clear-search" onclick="clearSearch()" class="hidden absolute right-3 top-3 text-slate-400 hover:text-white">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Actions (Cart & Support) -->
+            <div class="flex items-center gap-3">
+                <div class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-dark-900 border border-dark-700 text-xs font-mono text-neon-cyan">
+                    <i data-lucide="coins" class="w-3.5 h-3.5 text-neon-violet"></i>
+                    <span class="font-bold">EUR (€)</span>
+                </div>
+
+                <!-- Cart Button -->
+                <button id="main-cart-btn" onclick="handleCartButtonClick()" class="relative p-2.5 rounded-xl bg-dark-900 border border-dark-700 hover:border-neon-violet text-white transition-all flex items-center gap-2 group">
+                    <i data-lucide="shopping-cart" class="w-5 h-5 text-neon-cyan group-hover:scale-110 transition-transform"></i>
+                    <span class="text-xs font-bold hidden sm:inline">Количка</span>
+                    <span id="cart-badge" class="bg-gradient-to-r from-neon-violet to-neon-pink text-white text-[11px] font-bold w-5 h-5 rounded-full flex items-center justify-center transition-transform">0</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Search Bar -->
+        <div class="px-4 pb-3 md:hidden">
+            <div class="relative w-full">
+                <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-slate-400"></i>
+                <input 
+                    type="text" 
+                    id="search-input-mobile" 
+                    oninput="handleSearch(this.value)" 
+                    placeholder="Търси продукт..." 
+                    class="w-full bg-dark-900 border border-dark-700 rounded-lg pl-9 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-neon-violet"
+                >
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow">
+        <!-- ========================================== -->
+        <!-- HOME LANDING VIEW (Shown on Logo Click)    -->
+        <!-- ========================================== -->
+        <div id="home-view" class="hidden">
+            <!-- Home Hero Section -->
+            <section class="hero-gradient pt-14 pb-16 border-b border-white/5 relative overflow-hidden">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-3xl mx-auto text-center">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-dark-900/90 border border-neon-cyan/30 text-xs font-medium text-slate-300 mb-4 shadow-lg shadow-neon-cyan/5">
+                            <span class="text-neon-cyan font-bold">⭐ НАЙ-ДОВЕРЕНИЯТ GAMING MARKETPLACE</span>
+                            <span class="hidden sm:inline text-slate-500">•</span>
+                            <span class="hidden sm:inline text-slate-400">3,500+ Доволни Клиенти</span>
+                        </div>
+                        <h1 class="text-4xl sm:text-6xl font-display font-extrabold text-white tracking-tight leading-tight mb-4">
+                            Твоят сайт за евтини <br class="hidden sm:inline"/>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan via-white to-neon-violet drop-shadow-[0_0_25px_rgba(6,182,212,0.5)]">V-Bucks, Minecraft & CD Keys</span>
+                        </h1>
+                        <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+                            Пазарувай сигурно на топ цени в България. Автоматизирано изпращане за секунди, доживотна гаранция и 24/7 българска поддръжка през Discord.
+                        </p>
+
+                        <!-- Action CTA Buttons -->
+                        <div class="flex flex-wrap items-center justify-center gap-3.5 mt-8">
+                            <button onclick="goToCatalogPage()" class="px-7 py-3.5 bg-gradient-to-r from-neon-violet via-purple-600 to-neon-cyan hover:opacity-95 text-white font-bold text-xs sm:text-sm uppercase tracking-wider rounded-xl transition-all shadow-xl shadow-neon-violet/25 flex items-center gap-2 hover:scale-105 active:scale-95">
+                                <span>Разгледай Продуктите</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </button>
+                            <a href="#home-reviews-section" class="px-6 py-3.5 bg-dark-900 hover:bg-dark-800 text-slate-200 hover:text-white font-bold text-xs sm:text-sm rounded-xl border border-dark-700 transition-all flex items-center gap-2">
+                                <span>Виж Отзивите</span>
+                                <span class="text-neon-amber font-mono text-xs">★ 4.9/5</span>
+                            </a>
+                        </div>
+
+                        <!-- Live Stats Strip -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-4xl mx-auto mt-12 text-left">
+                            <div class="glass-card p-4 rounded-xl border border-white/5">
+                                <div class="text-2xl font-black font-mono text-neon-cyan">3,500+</div>
+                                <div class="text-[11px] text-slate-400 mt-0.5">Изпълнени Поръчки</div>
+                            </div>
+                            <div class="glass-card p-4 rounded-xl border border-white/5">
+                                <div class="text-2xl font-black font-mono text-neon-emerald">4.9 / 5.0</div>
+                                <div class="text-[11px] text-slate-400 mt-0.5">Оценка от Клиенти</div>
+                            </div>
+                            <div class="glass-card p-4 rounded-xl border border-white/5">
+                                <div class="text-2xl font-black font-mono text-neon-amber">&lt; 60 сек.</div>
+                                <div class="text-[11px] text-slate-400 mt-0.5">Средно Време Доставка</div>
+                            </div>
+                            <div class="glass-card p-4 rounded-xl border border-white/5">
+                                <div class="text-2xl font-black font-mono text-neon-violet">100%</div>
+                                <div class="text-[11px] text-slate-400 mt-0.5">Доживотна Гаранция</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Popular Categories Grid Showcase -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <span class="text-[11px] font-mono uppercase tracking-widest text-neon-cyan font-bold">// КАТАЛОГ</span>
+                        <h2 class="text-2xl sm:text-3xl font-display font-bold text-white mt-0.5">Избери Категория</h2>
+                    </div>
+                    <button onclick="goToCatalogPage()" class="text-xs text-neon-cyan hover:underline font-bold flex items-center gap-1">
+                        <span>Всички продукти</span>
+                        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <!-- Category 1: Fortnite -->
+                    <div onclick="openCategoryFromHome('fortnite')" class="glass-card rounded-2xl p-6 border border-dark-700/80 hover:border-neon-cyan/50 cursor-pointer transition-all hover:scale-[1.02] group relative overflow-hidden">
+                        <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-neon-cyan/10 rounded-full blur-2xl group-hover:bg-neon-cyan/20 transition-all"></div>
+                        <div class="w-12 h-12 rounded-xl bg-neon-cyan/15 border border-neon-cyan/30 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                            🪙
+                        </div>
+                        <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-neon-cyan/10 text-neon-cyan font-bold">Gifting & Crew</span>
+                        <h3 class="text-lg font-bold text-white mt-2 group-hover:text-neon-cyan transition-colors">Fortnite V-Bucks & Crew</h3>
+                        <p class="text-xs text-slate-400 mt-1 leading-relaxed">Всички V-Bucks пакети от 800 до 25,000 VB, 1/3/6 месеца Crew абонаменти и ексклузивни бъндли.</p>
+                        <div class="mt-4 pt-3 border-t border-dark-800 flex items-center justify-between text-xs font-bold text-neon-cyan">
+                            <span>Виж офертите</span>
+                            <span>→</span>
+                        </div>
+                    </div>
+
+                    <!-- Category 2: Minecraft -->
+                    <div onclick="openCategoryFromHome('minecraft')" class="glass-card rounded-2xl p-6 border border-dark-700/80 hover:border-neon-emerald/50 cursor-pointer transition-all hover:scale-[1.02] group relative overflow-hidden">
+                        <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-neon-emerald/10 rounded-full blur-2xl group-hover:bg-neon-emerald/20 transition-all"></div>
+                        <div class="w-12 h-12 rounded-xl bg-neon-emerald/15 border border-neon-emerald/30 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                            ⛏️
+                        </div>
+                        <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-neon-emerald/10 text-neon-emerald font-bold">Full Access (FA)</span>
+                        <h3 class="text-lg font-bold text-white mt-2 group-hover:text-neon-emerald transition-colors">Minecraft Акаунти</h3>
+                        <p class="text-xs text-slate-400 mt-1 leading-relaxed">Full Access Microsoft акаунти с Java & Bedrock Edition с пълен достъп и моментална смяна на данни.</p>
+                        <div class="mt-4 pt-3 border-t border-dark-800 flex items-center justify-between text-xs font-bold text-neon-emerald">
+                            <span>Виж офертите</span>
+                            <span>→</span>
+                        </div>
+                    </div>
+
+                    <!-- Category 3: Steam -->
+                    <div onclick="openCategoryFromHome('steam')" class="glass-card rounded-2xl p-6 border border-dark-700/80 hover:border-neon-pink/50 cursor-pointer transition-all hover:scale-[1.02] group relative overflow-hidden">
+                        <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-neon-pink/10 rounded-full blur-2xl group-hover:bg-neon-pink/20 transition-all"></div>
+                        <div class="w-12 h-12 rounded-xl bg-neon-pink/15 border border-neon-pink/30 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                            🔑
+                        </div>
+                        <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-neon-pink/10 text-neon-pink font-bold">Официални Ключове</span>
+                        <h3 class="text-lg font-bold text-white mt-2 group-hover:text-neon-pink transition-colors">CD Keys</h3>
+                        <p class="text-xs text-slate-400 mt-1 leading-relaxed">Оригинални дигитални лицензи и CD-Keys за игри с мигновена доставка и доживотна гаранция.</p>
+                        <div class="mt-4 pt-3 border-t border-dark-800 flex items-center justify-between text-xs font-bold text-neon-pink">
+                            <span>Виж офертите</span>
+                            <span>→</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Customer Reviews Section (Отзиви от реални клиенти) -->
+            <section id="home-reviews-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/5">
+                <div class="text-center max-w-2xl mx-auto mb-10">
+                    <span class="text-xs font-mono font-bold text-neon-cyan uppercase tracking-widest">// ПРОВЕРЕНИ ОТЗИВИ</span>
+                    <h2 class="text-2xl sm:text-4xl font-display font-extrabold text-white mt-2">Какво казват нашите клиенти</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm mt-2">
+                        Реални отзиви от геймъри, поръчали V-Bucks, Minecraft и CD Keys ключове от Triunity.store.
+                    </p>
+                    <div class="inline-flex items-center gap-2 mt-4 px-3.5 py-1.5 rounded-full bg-dark-900 border border-dark-700 text-xs">
+                        <div class="flex text-amber-400">★★★★★</div>
+                        <span class="font-bold text-white">4.9 / 5.0</span>
+                        <span class="text-slate-500">•</span>
+                        <span class="text-slate-400">базирано на 1,280+ отзива</span>
+                    </div>
+                </div>
+
+                <!-- Reviews Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <!-- Review 1 -->
+                    <div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex text-amber-400 text-sm">★★★★★</div>
+                                <span class="text-[10px] text-neon-emerald bg-neon-emerald/10 border border-neon-emerald/30 px-2 py-0.5 rounded-full font-mono flex items-center gap-1 font-bold">
+                                    <i data-lucide="check" class="w-3 h-3"></i> Проверена покупка
+                                </span>
+                            </div>
+                            <p class="text-xs text-slate-300 leading-relaxed font-normal">
+                                "Взех 4500 V-Bucks пакета. Системата изчаква 2 дни според правилата на Epic Games за нови приятели, след което точно както е описано ми ги гифтнаха в играта! Всичко е топ!"
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-dark-800 flex items-center justify-between text-xs">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-8 h-8 rounded-full bg-neon-cyan/20 border border-neon-cyan/40 text-neon-cyan font-bold flex items-center justify-center text-xs">
+                                    АК
+                                </div>
+                                <div>
+                                    <div class="font-bold text-white">Александър К.</div>
+                                    <div class="text-[10px] text-slate-500">Закупил: 4500 V-Bucks</div>
+                                </div>
+                            </div>
+                            <span class="text-[10px] text-slate-500 font-mono">Преди 2 дни</span>
+                        </div>
+                    </div>
+
+                    <!-- Review 2 -->
+                    <div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex text-amber-400 text-sm">★★★★★</div>
+                                <span class="text-[10px] text-neon-emerald bg-neon-emerald/10 border border-neon-emerald/30 px-2 py-0.5 rounded-full font-mono flex items-center gap-1 font-bold">
+                                    <i data-lucide="check" class="w-3 h-3"></i> Проверена покупка
+                                </span>
+                            </div>
+                            <p class="text-xs text-slate-300 leading-relaxed font-normal">
+                                "Поръчах Minecraft Full Access акаунт. Веднага след чекаута ми се показаха имейла и паролата на екрана. Влязох в Microsoft сайта, смених си името и сложих мой скин. Работи в Hypixel без никакъв проблем."
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-dark-800 flex items-center justify-between text-xs">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-8 h-8 rounded-full bg-neon-emerald/20 border border-neon-emerald/40 text-neon-emerald font-bold flex items-center justify-center text-xs">
+                                    ДМ
+                                </div>
+                                <div>
+                                    <div class="font-bold text-white">Димитър М.</div>
+                                    <div class="text-[10px] text-slate-500">Закупил: Minecraft Full Access</div>
+                                </div>
+                            </div>
+                            <span class="text-[10px] text-slate-500 font-mono">Преди 3 дни</span>
+                        </div>
+                    </div>
+
+                    <!-- Review 3 -->
+                    <div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex text-amber-400 text-sm">★★★★★</div>
+                                <span class="text-[10px] text-neon-emerald bg-neon-emerald/10 border border-neon-emerald/30 px-2 py-0.5 rounded-full font-mono flex items-center gap-1 font-bold">
+                                    <i data-lucide="check" class="w-3 h-3"></i> Проверена покупка
+                                </span>
+                            </div>
+                            <p class="text-xs text-slate-300 leading-relaxed font-normal">
+                                "Абонирах се за 3 месеца Fortnite Crew. Цената е повече от два пъти по-евтина, отколкото директно в играта. Момчетата в Discord бяха супер отзивчиви и ми начислиха Battle Pass-а!"
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-dark-800 flex items-center justify-between text-xs">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-8 h-8 rounded-full bg-neon-violet/20 border border-neon-violet/40 text-neon-violet font-bold flex items-center justify-center text-xs">
+                                    СИ
+                                </div>
+                                <div>
+                                    <div class="font-bold text-white">Станислав И.</div>
+                                    <div class="text-[10px] text-slate-500">Закупил: Fortnite Crew 3 Месеца</div>
+                                </div>
+                            </div>
+                            <span class="text-[10px] text-slate-500 font-mono">Преди 5 дни</span>
+                        </div>
+                    </div>
+
+                    <!-- Review 4 -->
+                    <div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex text-amber-400 text-sm">★★★★★</div>
+                                <span class="text-[10px] text-neon-emerald bg-neon-emerald/10 border border-neon-emerald/30 px-2 py-0.5 rounded-full font-mono flex items-center gap-1 font-bold">
+                                    <i data-lucide="check" class="w-3 h-3"></i> Проверена покупка
+                                </span>
+                            </div>
+                            <p class="text-xs text-slate-300 leading-relaxed font-normal">
+                                "Взех GTA V Premium Edition. Ключът ми даде бонус милион долара в играта и върви перфектно през Rockstar Launcher! Много коректни и бързи."
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-dark-800 flex items-center justify-between text-xs">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-8 h-8 rounded-full bg-neon-pink/20 border border-neon-pink/40 text-neon-pink font-bold flex items-center justify-center text-xs">
+                                    ВГ
+                                </div>
+                                <div>
+                                    <div class="font-bold text-white">Виктор Г.</div>
+                                    <div class="text-[10px] text-slate-500">Закупил: GTA V Premium Key</div>
+                                </div>
+                            </div>
+                            <span class="text-[10px] text-slate-500 font-mono">Преди 1 седмица</span>
+                        </div>
+                    </div>
+
+                    <!-- Review 5 -->
+                    <div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex text-amber-400 text-sm">★★★★★</div>
+                                <span class="text-[10px] text-neon-emerald bg-neon-emerald/10 border border-neon-emerald/30 px-2 py-0.5 rounded-full font-mono flex items-center gap-1 font-bold">
+                                    <i data-lucide="check" class="w-3 h-3"></i> Проверена покупка
+                                </span>
+                            </div>
+                            <p class="text-xs text-slate-300 leading-relaxed font-normal">
+                                "2400 V-Bucks взети без никакъв проблем. След изчакването на задължителните 2 дни приятелство в Epic, профилът им ми ги гифтна в Shop-а. Топ сайт!"
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-dark-800 flex items-center justify-between text-xs">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-8 h-8 rounded-full bg-neon-cyan/20 border border-neon-cyan/40 text-neon-cyan font-bold flex items-center justify-center text-xs">
+                                    КП
+                                </div>
+                                <div>
+                                    <div class="font-bold text-white">Кристиян П.</div>
+                                    <div class="text-[10px] text-slate-500">Закупил: 2400 V-Bucks</div>
+                                </div>
+                            </div>
+                            <span class="text-[10px] text-slate-500 font-mono">Преди 1 седмица</span>
+                        </div>
+                    </div>
+
+                    <!-- Review 6 -->
+                    <div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex text-amber-400 text-sm">★★★★★</div>
+                                <span class="text-[10px] text-neon-emerald bg-neon-emerald/10 border border-neon-emerald/30 px-2 py-0.5 rounded-full font-mono flex items-center gap-1 font-bold">
+                                    <i data-lucide="check" class="w-3 h-3"></i> Проверена покупка
+                                </span>
+                            </div>
+                            <p class="text-xs text-slate-300 leading-relaxed font-normal">
+                                "Взех GTA V Premium Edition. Ключът тръгна от първия път в Rockstar Launcher и получих и онлайн бонуса от 1 милион долара. Определено ще пазарувам пак от Triunity."
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-dark-800 flex items-center justify-between text-xs">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-8 h-8 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold flex items-center justify-center text-xs">
+                                    НТ
+                                </div>
+                                <div>
+                                    <div class="font-bold text-white">Николай Т.</div>
+                                    <div class="text-[10px] text-slate-500">Закупил: GTA V Rockstar Key</div>
+                                </div>
+                            </div>
+                            <span class="text-[10px] text-slate-500 font-mono">Преди 2 седмици</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom CTA in Home View -->
+                <div class="mt-12 text-center p-8 rounded-3xl bg-gradient-to-r from-dark-900 via-dark-850 to-dark-900 border border-white/10">
+                    <h3 class="text-xl sm:text-2xl font-display font-bold text-white">Готов ли си да спестиш от следващата си игра?</h3>
+                    <p class="text-xs text-slate-400 mt-2 max-w-xl mx-auto">Разгледай актуалните ни наличности и започни да пазаруваш на истински евтини цени с моментална доставка.</p>
+                    <button onclick="goToCatalogPage()" class="mt-6 px-8 py-3.5 bg-gradient-to-r from-neon-violet to-neon-cyan hover:opacity-95 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-xl shadow-neon-violet/20 hover:scale-105 active:scale-95 inline-flex items-center gap-2">
+                        <span>Към Всички Оферти в Каталога</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- CATALOG VIEW (Products, Filter Tabs, Grid) -->
+        <!-- Catalog View (Products, Filter Tabs, Grid) -->
+        <div id="catalog-view">
+            <!-- Hero Banner (Simplified: Clean Title without 'Топ оферта днес' deal widget) -->
+            <section class="hero-gradient pt-8 pb-8 border-b border-white/5 relative overflow-hidden">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-3xl mx-auto text-center">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-dark-900/90 border border-dark-700 text-xs font-medium text-slate-300 mb-3">
+                            <span class="text-neon-cyan font-bold">✨ НАЙ-ДОБРИТЕ ЦЕНИ</span> 
+                            <span>• Официални дигитални лицензи и акаунти</span>
+                        </div>
+                        <h1 class="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight leading-tight mb-3">
+                            Евтини <span class="text-white drop-shadow-[0_0_12px_rgba(255,255,255,0.4)]">V-Bucks</span>, Minecraft и ключове за игри
+                        </h1>
+                        <p class="text-slate-400 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed">
+                            Моментално изпращане на лицензионни ключове, V-Bucks gifting система, Fortnite Crew пакети и 100% верифицирани Full Access Minecraft профили с доживотна гаранция.
+                        </p>
+                        
+                        <!-- Quick Perks -->
+                        <div class="flex flex-wrap items-center justify-center gap-3 mt-5 text-xs font-medium text-slate-300">
+                            <div class="flex items-center gap-2 bg-dark-900/80 px-3 py-1.5 rounded-lg border border-dark-700">
+                                <i data-lucide="zap" class="w-4 h-4 text-neon-amber"></i>
+                                <span>Изпращане веднага</span>
+                            </div>
+                            <div class="flex items-center gap-2 bg-dark-900/80 px-3 py-1.5 rounded-lg border border-dark-700">
+                                <i data-lucide="shield-check" class="w-4 h-4 text-neon-emerald"></i>
+                                <span>Пълна гаранция</span>
+                            </div>
+                            <div class="flex items-center gap-2 bg-dark-900/80 px-3 py-1.5 rounded-lg border border-dark-700">
+                                <i data-lucide="wallet" class="w-4 h-4 text-neon-cyan"></i>
+                                <span>Revolut / EasyPay / Карти</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Category & Filter Tabs -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
+                <!-- Main Game Category Buttons -->
+                <div class="flex flex-wrap items-center gap-2 sm:gap-3 border-b border-dark-700/60 pb-5">
+                    <button onclick="setCategory('fortnite')" id="cat-fortnite" class="cat-pill active px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition-all bg-neon-violet text-white shadow-lg shadow-neon-violet/20">
+                        <span class="w-2.5 h-2.5 rounded-full bg-neon-cyan"></span>
+                        <span>Fortnite</span>
+                        <span id="count-fortnite" class="text-[10px] bg-dark-950/50 px-2 py-0.5 rounded-full">6</span>
+                    </button>
+
+                    <button onclick="setCategory('minecraft')" id="cat-minecraft" class="cat-pill px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition-all bg-dark-900 border border-dark-700 text-slate-300 hover:text-white hover:border-slate-500">
+                        <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald"></span>
+                        <span>Minecraft</span>
+                        <span id="count-minecraft" class="text-[10px] bg-dark-950/50 px-2 py-0.5 rounded-full">1</span>
+                    </button>
+
+                    <button onclick="setCategory('steam')" id="cat-steam" class="cat-pill px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition-all bg-dark-900 border border-dark-700 text-slate-300 hover:text-white hover:border-slate-500">
+                        <span class="w-2.5 h-2.5 rounded-full bg-neon-pink"></span>
+                        <span>CD Keys</span>
+                        <span id="count-steam" class="text-[10px] bg-dark-950/50 px-2 py-0.5 rounded-full">1</span>
+                    </button>
+                </div>
+
+                <!-- Subfilter Tags (dynamically updated per active category) -->
+                <div id="subfilters-container" class="flex flex-wrap items-center gap-2 pt-4">
+                    <!-- Dynamically rendered based on active category -->
+                </div>
+            </section>
+
+            <!-- Products Catalog Grid -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h2 class="text-xl sm:text-2xl font-display font-bold text-white flex items-center gap-2">
+                            <span id="active-category-title">Fortnite V-Bucks</span>
+                            <span id="results-count" class="text-xs font-mono font-medium text-slate-400 bg-dark-900 px-2 py-0.5 rounded border border-dark-700">4 артикула</span>
+                        </h2>
+                    </div>
+
+                    <!-- Sort dropdown -->
+                    <div class="flex items-center gap-2 text-xs">
+                        <span class="text-slate-400 hidden sm:inline">Сортиране:</span>
+                        <select id="sort-select" onchange="handleSort(this.value)" class="bg-dark-900 border border-dark-700 text-white rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-neon-violet">
+                            <option value="featured">Препоръчани</option>
+                            <option value="price-asc">Цена: Ниска към Висока</option>
+                            <option value="price-desc">Цена: Висока към Ниска</option>
+                            <option value="discount">Най-голяма отстъпка</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Products Grid Container -->
+                <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                    <!-- Injected via JavaScript -->
+                </div>
+
+                <!-- Empty State -->
+                <div id="empty-state" class="hidden py-16 text-center">
+                    <div class="w-16 h-16 rounded-full bg-dark-900 border border-dark-700 flex items-center justify-center mx-auto mb-3 text-slate-500">
+                        <i data-lucide="package-search" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-base font-bold text-white">Няма намерени продукти</h3>
+                    <p class="text-xs text-slate-400 mt-1">Опитай да промениш търсенето или избери друга категория.</p>
+                    <button onclick="resetFilters()" class="mt-4 px-4 py-2 bg-dark-800 hover:bg-dark-700 text-xs font-semibold rounded-lg text-neon-cyan border border-dark-700">
+                        Изчисти филтрите
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- Guarantee & Why Choose Us Section -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-dark-700/60">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-xs font-mono font-bold text-neon-cyan uppercase tracking-widest">// СИГУРНОСТ & КАЧЕСТВО</span>
+                <h2 class="text-2xl sm:text-3xl font-display font-bold text-white mt-2">Защо да поръчаш от Triunity.store?</h2>
+                <p class="text-slate-400 text-xs sm:text-sm mt-2">Повече от 3,500+ доволни геймъри от България избират нас за техните покупки.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card p-6 rounded-2xl">
+                    <div class="w-12 h-12 rounded-xl bg-neon-violet/10 border border-neon-violet/30 flex items-center justify-center text-neon-violet mb-4">
+                        <i data-lucide="zap" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-base font-bold text-white mb-2">Мигновена Автоматична Доставка</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        След успешно плащане отваряш тикет в нашия Discord сървър с номера на поръчката и получаваш своя ключ или данни за акаунт на момента.
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl">
+                    <div class="w-12 h-12 rounded-xl bg-neon-cyan/10 border border-neon-cyan/30 flex items-center justify-center text-neon-cyan mb-4">
+                        <i data-lucide="shield-alert" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-base font-bold text-white mb-2">100% Доживотна Гаранция</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Всички Minecraft акаунти са Full Access (смяна на мейл/парола/скин). Ключовете са официални и активират играта за постоянно.
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl">
+                    <div class="w-12 h-12 rounded-xl bg-neon-emerald/10 border border-neon-emerald/30 flex items-center justify-center text-neon-emerald mb-4">
+                        <i data-lucide="message-square" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-base font-bold text-white mb-2">Поддръжка в Discord</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Имаш въпрос за активирането? Нашият екип отговаря бързо в Discord билет системата ни всеки ден от 09:00 до 00:00 ч.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+            <h2 class="text-xl sm:text-2xl font-display font-bold text-white text-center mb-6">Често Задавани Въпроси</h2>
+            <div class="space-y-3">
+                <div class="glass-card rounded-xl p-4 cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs sm:text-sm font-bold text-white">Как става зареждането на Fortnite V-Bucks и Crew?</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 transition-transform duration-200"></i>
+                    </div>
+                    <div class="faq-content hidden mt-3 pt-3 border-t border-white/5 text-xs text-slate-400 leading-relaxed space-y-2">
+                        <p><strong class="text-neon-cyan">За V-Bucks:</strong> Зареждането и получаването на предмети се извършва изцяло през нашата автоматизирана <strong>Gifting система</strong>. Добавяте нашия профил за приятел в Fortnite и получавате избраните от вас скинове, танци или пакети директно като подарък в играта — бързо, лесно и без нужда да предоставяте паролата на профила си.</p>
+                        <p><strong class="text-neon-violet">За Fortnite Crew:</strong> Активацията на месечния абонамент става чрез <strong>директен вход в Epic Games акаунта ви</strong> от наш администратор през защитена конзолна система. <em>Важно условие:</em> Към вашия Epic Games профил <u>не трябва да е имало предварително свързван (link-ван) друг Xbox акаунт</u>, за да може абонаментът да се начисли безконфликтно.</p>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-xl p-4 cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs sm:text-sm font-bold text-white">Какви са Minecraft акаунтите (Full Access)?</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 transition-transform duration-200"></i>
+                    </div>
+                    <div class="faq-content hidden mt-3 pt-3 border-t border-white/5 text-xs text-slate-400 leading-relaxed">
+                        Получаваш пълен достъп: имейл + парола към Microsoft акаунта. Можеш веднага да смениш паролата, имейла за сигурност, потребителското име и скин. Акаунтите имат Java Edition и Bedrock Edition заедно и работят в Hypixel.
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-xl p-4 cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs sm:text-sm font-bold text-white">Какви методи на плащане приемате?</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 transition-transform duration-200"></i>
+                    </div>
+                    <div class="faq-content hidden mt-3 pt-3 border-t border-white/5 text-xs text-slate-400 leading-relaxed">
+                        Приемаме Revolut (@kostadink87 / IBAN), плащане в брой на каса с IBAN в EasyPay, както и сигурно директно плащане с банкови карти (Visa / Mastercard).
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark-900 border-t border-dark-700/60 py-10 text-xs text-slate-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+                <div class="font-display font-bold text-lg text-white">TRIUNITY<span class="text-neon-cyan">.STORE</span></div>
+                <p class="text-slate-500 mt-1">Независим гейминг дистрибутор. Всички търговски марки принадлежат на съответните им собственици (Epic Games, Mojang, Valve).</p>
+            </div>
+            <div class="flex items-center gap-4 text-slate-300">
+                <a href="https://discord.gg/PKCZaSHRJq" target="_blank" rel="noopener noreferrer" class="hover:text-neon-cyan flex items-center gap-1.5"><i data-lucide="disc" class="w-4 h-4"></i> Discord Общност</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Slide-Over Drawer -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden invisible" aria-modal="true">
+        <!-- Backdrop with smooth opacity transition -->
+        <div id="cart-backdrop" class="absolute inset-0 bg-black/80 backdrop-blur-md opacity-0" onclick="toggleCartDrawer(false)"></div>
+        <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-6">
+            <!-- Sliding panel with spring cubic-bezier -->
+            <div id="cart-panel" class="pointer-events-auto w-screen max-w-md bg-dark-950 border-l border-dark-700 flex flex-col justify-between p-6 shadow-2xl translate-x-full relative">
+                <div>
+                    <div class="flex items-center justify-between border-b border-dark-700 pb-4">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="shopping-bag" class="w-5 h-5 text-neon-cyan animate-pulse"></i>
+                            <h2 class="font-display font-bold text-lg text-white">Твоята Количка</h2>
+                            <span id="drawer-item-count" class="text-xs bg-dark-800 text-neon-violet px-2 py-0.5 rounded font-mono font-bold">0</span>
+                        </div>
+                        <button onclick="toggleCartDrawer(false)" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-dark-900 transition-colors">
+                            <i data-lucide="x" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+
+                    <!-- Cart Items List -->
+                    <div id="cart-items-container" class="mt-4 space-y-3 max-h-[50vh] overflow-y-auto pr-1">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Drawer Footer & Summary -->
+                <div id="cart-drawer-footer" class="border-t border-dark-700 pt-4 space-y-4">
+                    <!-- Price breakdown -->
+                    <div class="space-y-1.5 text-xs">
+                        <div class="flex justify-between text-slate-400">
+                            <span>Междинна сума:</span>
+                            <span id="drawer-subtotal" class="font-mono text-white">€0.00</span>
+                        </div>
+                        <div id="discount-row" class="hidden flex justify-between text-neon-emerald">
+                            <span>Отстъпка код:</span>
+                            <span id="drawer-discount" class="font-mono">-€0.00</span>
+                        </div>
+                        <div class="flex justify-between text-sm font-bold text-white pt-2 border-t border-dark-800">
+                            <span>Крайна сума:</span>
+                            <span id="drawer-total" class="font-mono text-neon-cyan text-base">€0.00</span>
+                        </div>
+                    </div>
+
+                    <!-- Checkout Button -->
+                    <button onclick="openCheckoutModal()" id="btn-proceed-checkout" disabled class="w-full py-3.5 bg-gradient-to-r from-neon-violet to-neon-cyan disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-95 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-2">
+                        <span>Премини към плащане</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fullscreen Dedicated Product Detail View (Styled exactly like the provided screenshot) -->
+    <div id="product-detail-page" class="fixed inset-0 z-50 hidden bg-[#070a12] overflow-y-auto selection:bg-[#00d4ff] selection:text-black">
+        <div class="max-w-[1240px] mx-auto px-4 sm:px-8 lg:px-12 py-8 min-h-screen flex flex-col justify-start">
+            
+            <!-- Breadcrumbs / Back navigation (Screenshot match: ← Всички V-Bucks) -->
+            <div class="mb-8">
+                <button onclick="closeProductView()" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-300 hover:text-white transition-colors">
+                    <span id="pdp-back-label" class="text-slate-300 hover:text-white">← Всички V-Bucks</span>
+                </button>
+            </div>
+
+            <!-- Main Product Layout (2 columns matching screenshot 1:1) -->
+            <div id="pdp-container" class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+                <!-- Injected dynamically by renderProductDetailPage() -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-dark-900 border border-dark-700 rounded-2xl max-w-xl w-full p-6 sm:p-8 relative shadow-2xl">
+            <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 p-1 text-slate-400 hover:text-white bg-dark-800 rounded-lg">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div class="mb-5">
+                <span class="text-[11px] font-mono text-neon-cyan uppercase tracking-widest">// СИГУРЕН ЧЕКАУТ</span>
+                <h3 class="text-xl sm:text-2xl font-display font-bold text-white mt-1">Завършване на поръчката</h3>
+                <p class="text-xs text-slate-400 mt-1">Ключовете и данните за вход се генерират веднага след потвърждение.</p>
+            </div>
+
+            <form id="checkout-form" onsubmit="handleCheckoutSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Имейл адрес за получаване на ключовете *</label>
+                    <input required type="email" id="customer-email" placeholder="твоят-имейл@gmail.com" class="w-full bg-dark-950 border border-dark-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-neon-violet">
+                    <span class="text-[10px] text-slate-500 mt-1 block">Увери се, че имейлът е верен! Кодовете ще бъдат изпратени тук.</span>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Discord Tag или потребителско име (по избор за съпорт)</label>
+                    <input type="text" id="customer-discord" placeholder="username#0000 или @username" class="w-full bg-dark-950 border border-dark-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-neon-violet">
+                </div>
+
+                <!-- Payment Method Selection -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-2">Избери начин на плащане *</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                        <label class="payment-method-card flex items-center gap-2.5 p-3 rounded-xl border border-neon-violet bg-neon-violet/10 cursor-pointer">
+                            <input type="radio" name="payment-method" value="Revolut" checked class="text-neon-violet">
+                            <div>
+                                <div class="text-xs font-bold text-white">Revolut</div>
+                                <div class="text-[10px] text-slate-400">По @kostadink87 или банков превод по IBAN</div>
+                            </div>
+                        </label>
+
+                        <label class="payment-method-card flex items-center gap-2.5 p-3 rounded-xl border border-dark-700 bg-dark-950 cursor-pointer hover:border-slate-600">
+                            <input type="radio" name="payment-method" value="EasyPay" class="text-neon-violet">
+                            <div>
+                                <div class="text-xs font-bold text-white">EasyPay</div>
+                                <div class="text-[10px] text-slate-400">В брой на каса с IBAN</div>
+                            </div>
+                        </label>
+
+                        <label class="payment-method-card flex items-center gap-2.5 p-3 rounded-xl border border-dark-700 bg-dark-950 cursor-pointer hover:border-slate-600 sm:col-span-2">
+                            <input type="radio" name="payment-method" value="Card" class="text-neon-violet">
+                            <div class="flex items-center justify-between w-full pr-1">
+                                <div>
+                                    <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                                        <span>Банкова Карта</span>
+                                        <span class="text-[10px] bg-white/10 text-slate-200 px-1.5 py-0.5 rounded font-mono">Visa / Mastercard</span>
+                                    </div>
+                                    <div class="text-[10px] text-slate-400">Директно онлайн плащане с карта през линк с точната сума</div>
+                                </div>
+                                <div class="flex items-center gap-1.5 shrink-0 ml-2 text-slate-300">
+                                    <i data-lucide="credit-card" class="w-5 h-5 text-neon-cyan"></i>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Order Summary in Checkout -->
+                <div class="bg-dark-950 p-3.5 rounded-xl border border-dark-700 text-xs space-y-1.5">
+                    <div class="flex justify-between text-slate-400">
+                        <span>Артикули:</span>
+                        <span id="checkout-summary-items" class="text-white font-mono">0 бр.</span>
+                    </div>
+                    <div class="flex justify-between font-bold text-white text-sm pt-1 border-t border-dark-800">
+                        <span>Дължима сума:</span>
+                        <span id="checkout-summary-total" class="font-mono text-neon-cyan">€0.00</span>
+                    </div>
+                </div>
+
+                <button type="submit" id="checkout-submit-btn" class="w-full py-3.5 bg-gradient-to-r from-neon-violet to-neon-cyan hover:opacity-95 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-neon-violet/20 flex items-center justify-center gap-2">
+                    <i data-lucide="lock" class="w-4 h-4"></i>
+                    <span>Потвърди и завърши поръчката</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success / Instant Delivery Confirmation Modal -->
+    <div id="order-success-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-dark-900 border border-neon-emerald/50 rounded-2xl max-w-lg w-full p-6 sm:p-8 text-center relative shadow-2xl checkout-success-animate">
+            <div class="w-16 h-16 rounded-full bg-neon-emerald/20 border border-neon-emerald text-neon-emerald flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="check" class="w-8 h-8"></i>
+            </div>
+            <h3 class="font-display font-bold text-2xl text-white">Успешна Поръчка!</h3>
+            <p class="text-xs text-slate-300 mt-1">Твоите данни за активиране са генерирани долу и изпратени на посочения имейл.</p>
+
+            <!-- Discord Ticket Action Banner -->
+            <div class="mt-4 p-3.5 bg-neon-violet/15 border border-neon-violet/40 rounded-xl text-left flex items-start gap-3">
+                <div class="p-2 bg-neon-violet/20 rounded-lg text-neon-cyan shrink-0 mt-0.5">
+                    <i data-lucide="disc" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h4 class="text-xs font-bold text-white flex items-center gap-1.5">
+                        <span>Следваща стъпка: Отвори тикет в Discord!</span>
+                        <span class="text-[10px] bg-neon-cyan/20 text-neon-cyan px-1.5 py-0.5 rounded font-mono font-bold">ВАЖНО</span>
+                    </h4>
+                    <p class="text-[11px] text-slate-300 mt-1 leading-relaxed">
+                        За да получиш своя V-Bucks подарък, акаунт активация или потвърждение за превода, моля влез в нашия Discord сървър и <strong>отвори Ticket с номера на поръчката ти</strong>.
+                    </p>
+                    <a href="https://discord.gg/PKCZaSHRJq" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 mt-2.5 px-3 py-1.5 rounded-lg bg-neon-violet hover:bg-neon-violet/80 text-white font-bold text-[11px] tracking-wide transition-colors">
+                        <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
+                        <span>Отвори Ticket в Discord →</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="mt-4 p-4 rounded-xl bg-dark-950 border border-dark-700 text-left space-y-3">
+                <div class="flex items-center justify-between text-xs text-slate-400">
+                    <div>
+                        <span>Номер на поръчка:</span>
+                        <span id="success-order-id" class="font-mono text-white font-bold ml-1">#CK-84920</span>
+                    </div>
+                    <button type="button" onclick="copyOrderId()" class="px-2.5 py-1 rounded-lg bg-neon-cyan/20 hover:bg-neon-cyan text-neon-cyan hover:text-dark-950 text-[11px] font-bold border border-neon-cyan/40 transition-colors flex items-center gap-1">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                        <span id="copy-order-id-label">Копирай номера</span>
+                    </button>
+                </div>
+                <div class="flex justify-between text-xs text-slate-400">
+                    <span>Начин на плащане:</span>
+                    <span id="success-payment-method" class="text-neon-cyan font-semibold">Revolut</span>
+                </div>
+
+                <!-- Revolut Payment Details Box (Visible for Revolut) -->
+                <div id="revolut-details-box" class="hidden pt-3 border-t border-dark-800 space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[11px] font-mono uppercase text-neon-cyan font-bold flex items-center gap-1.5">
+                            <i data-lucide="wallet" class="w-3.5 h-3.5"></i> Данни за плащане през Revolut:
+                        </span>
+                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-neon-cyan/10 border border-neon-cyan/30 text-neon-cyan font-mono font-bold">@kostadink87</span>
+                    </div>
+
+                    <div class="p-3 bg-dark-900 rounded-xl border border-neon-cyan/30 flex items-center justify-between gap-3">
+                        <div>
+                            <span class="text-[10px] text-slate-400 block font-mono">Revolut Revtag:</span>
+                            <span class="text-xs sm:text-sm font-mono font-black text-neon-cyan tracking-wider select-all">@kostadink87</span>
+                        </div>
+                        <button type="button" onclick="copyTextToClipboard('@kostadink87', 'copy-revtag-btn-label')" class="px-2.5 py-1.5 rounded-lg bg-neon-cyan/20 hover:bg-neon-cyan text-neon-cyan hover:text-dark-950 text-[11px] font-bold border border-neon-cyan/40 transition-colors flex items-center gap-1 shrink-0">
+                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                            <span id="copy-revtag-btn-label">Копирай</span>
+                        </button>
+                    </div>
+
+                    <div class="p-3 bg-dark-900 rounded-xl border border-dark-700 flex items-center justify-between gap-3">
+                        <div>
+                            <span class="text-[10px] text-slate-400 block font-mono">IBAN (Revolut сметка):</span>
+                            <span class="text-xs sm:text-sm font-mono font-black text-white tracking-wider select-all">LT60 3250 0139 8059 4051</span>
+                        </div>
+                        <button type="button" onclick="copyTextToClipboard('LT60 3250 0139 8059 4051', 'copy-rev-iban-btn-label')" class="px-2.5 py-1.5 rounded-lg bg-dark-800 hover:bg-dark-700 text-slate-300 hover:text-white text-[11px] font-bold border border-dark-700 transition-colors flex items-center gap-1 shrink-0">
+                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                            <span id="copy-rev-iban-btn-label">Копирай</span>
+                        </button>
+                    </div>
+                    <p class="text-[10px] text-slate-400 leading-relaxed">
+                        Посочете номера на поръчката като бележка/основание при превода в Revolut.
+                    </p>
+                </div>
+
+                <!-- EasyPay IBAN Details Box (Visible only for EasyPay) -->
+                <div id="easypay-iban-box" class="hidden pt-3 border-t border-dark-800 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[11px] font-mono uppercase text-neon-amber font-bold flex items-center gap-1.5">
+                            <i data-lucide="building-2" class="w-3.5 h-3.5"></i> Данни за плащане през EasyPay:
+                        </span>
+                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono font-bold">Превод по сметка</span>
+                    </div>
+                    <div class="p-3 bg-dark-900 rounded-xl border border-amber-500/30 flex items-center justify-between gap-3">
+                        <div>
+                            <span class="text-[10px] text-slate-400 block font-mono">IBAN:</span>
+                            <span id="easypay-iban-text" class="text-xs sm:text-sm font-mono font-black text-amber-300 tracking-wider select-all">LT60 3250 0139 8059 4051</span>
+                        </div>
+                        <button type="button" onclick="copyEasyPayIban()" class="px-2.5 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-dark-950 text-[11px] font-bold border border-amber-500/40 transition-colors flex items-center gap-1 shrink-0">
+                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                            <span id="copy-iban-btn-label">Копирай</span>
+                        </button>
+                    </div>
+                    <!-- EasyPay notice alert -->
+                    <div class="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-300 flex items-start gap-2">
+                        <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-400 shrink-0 mt-0.5"></i>
+                        <span><strong>Внимание:</strong> Всички плащания с EasyPay си получават нещата след като парите са при нас или след като изпратите снимка как сте ги изпратили.</span>
+                    </div>
+                    <p class="text-[10px] text-slate-400 leading-relaxed">
+                        Посочете номера на поръчката като основание за плащане на касата на EasyPay или при банковия превод.
+                    </p>
+                </div>
+
+                <!-- Card Payment Details Box (Visible for Card) -->
+                <div id="card-details-box" class="hidden pt-3 border-t border-dark-800 space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[11px] font-mono uppercase text-neon-cyan font-bold flex items-center gap-1.5">
+                            <i data-lucide="credit-card" class="w-3.5 h-3.5"></i> Плащане с банкова карта:
+                        </span>
+                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-neon-cyan/10 border border-neon-cyan/30 text-neon-cyan font-mono font-bold">Линк за плащане</span>
+                    </div>
+
+                    <div class="p-3.5 bg-dark-900 rounded-xl border border-neon-cyan/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-lg shadow-neon-cyan/5">
+                        <div>
+                            <span class="text-xs font-bold text-white block">Плати сигурно с всяка банкова карта</span>
+                            <span class="text-[11px] text-slate-400 mt-0.5 block">Отворете линка за плащане през карта:</span>
+                            <span id="card-link-preview" class="text-[11px] font-mono text-neon-cyan underline break-all mt-0.5 block">https://revolut.me/kostadink87</span>
+                        </div>
+                        <a id="card-pay-direct-btn" href="https://revolut.me/kostadink87" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-neon-cyan to-neon-violet hover:opacity-90 text-dark-950 font-black text-xs tracking-wider uppercase transition-all flex items-center justify-center gap-2 shrink-0 shadow-md">
+                            <span>Плати с Карта Тук</span>
+                            <i data-lucide="external-link" class="w-3.5 h-3.5 stroke-[2.5]"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- Важно съобщение за бележката -->
+                    <div class="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/40 text-[11px] text-amber-300 flex items-start gap-2">
+                        <i data-lucide="alert-circle" class="w-4 h-4 text-amber-400 shrink-0 mt-0.5"></i>
+                        <span><strong>ВАЖНО:</strong> Задължително напишете като бележка (Note) при плащането <u>какво сте закупили и номера на поръчката</u> (напр. <em>"1500 V-Bucks и #CK-84920"</em>).</span>
+                    </div>
+
+                    <p class="text-[10px] text-slate-400 leading-relaxed">
+                        След отваряне на линка изберете опцията за плащане с дебитна/кредитна карта и въведете точно дължимата сума за вашата поръчка.
+                    </p>
+                </div>
+                
+                <!-- Generated Keys Box (Hidden when paying with Revolut or EasyPay) -->
+                <div id="generated-keys-box" class="pt-2 border-t border-dark-800">
+                    <span class="text-[11px] font-mono uppercase text-neon-emerald block mb-1.5 font-bold">🔑 Генерирани кодове / Данни за достъп:</span>
+                    <div id="success-keys-container" class="bg-dark-900 p-2.5 rounded-lg border border-dark-700 font-mono text-xs text-white space-y-1">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Manual Verification Box (Shown for Revolut & EasyPay) -->
+                <div id="manual-payment-info-box" class="hidden pt-2 border-t border-dark-800">
+                    <div class="p-3 bg-dark-900 rounded-xl border border-neon-cyan/30 text-xs text-slate-300 space-y-1.5">
+                        <div class="font-bold text-white flex items-center gap-1.5">
+                            <i data-lucide="shield-check" class="w-4 h-4 text-neon-cyan"></i>
+                            <span>Активация след потвърждение на плащането</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 leading-relaxed">
+                            Копирайте <strong>номера на поръчката</strong> отгоре и го изпратете в отворения Discord Ticket заедно с потвърждение за превода (скрийншот или касова бележка). Данните/ключовете ще ви бъдат изпратени веднага в тикета от администратор.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4 p-3 bg-dark-950 rounded-xl border border-dark-700 text-xs text-slate-300 flex items-center gap-2 text-left">
+                <i data-lucide="help-circle" class="w-5 h-5 text-neon-cyan shrink-0"></i>
+                <span>Копирай номера на поръчката и го изпрати в своя отворен Ticket в Discord за незабавна обработка от администратор.</span>
+            </div>
+
+            <button onclick="closeSuccessModal()" class="mt-6 w-full py-3 bg-dark-800 hover:bg-dark-700 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-colors">
+                Затвори
+            </button>
+        </div>
+    </div>
+
+    <!-- Generic Product Quick Preview Modal -->
+    <div id="product-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-dark-900 border border-dark-700 rounded-2xl max-w-lg w-full p-6 relative shadow-2xl">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 p-1 text-slate-400 hover:text-white bg-dark-800 rounded-lg">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div id="modal-content"></div>
+        </div>
+    </div>
+
+    <!-- Application Logic & Store Database -->
+    <script>
+        let cart = [];
+        let currentCategory = 'fortnite'; // Default active category is fortnite
+        let currentSubfilter = 'vbucks'; // Default filter in Fortnite is strictly vbucks
+        let searchQuery = '';
+        let currentSort = 'featured';
+
+        // Master Product Catalog with EUR (€) prices and custom visual SVG cards for EVERY product
+        const products = [
+            // FORTNITE: V-BUCKS
+            {
+                id: 101,
+                category: 'fortnite',
+                subfilter: 'vbucks',
+                title: '800 V-Bucks',
+                subtitle: 'Скинове и Battle Pass в твоя Fortnite акаунт',
+                gameBadge: 'V-Bucks',
+                badgeColor: 'text-white bg-white/10 border-white/30',
+                deliveryTag: '⚡ Мигновена доставка',
+                inStock: true,
+                priceEUR: 5.20,
+                oldPriceEUR: 8.99,
+                cardTheme: 'fortnite-blue',
+                imageUrl: 'https://i.postimg.cc/pL4wKpL3/Gemini-Generated-Image-oac77koac77koac7.jpg',
+                iconEmoji: '🪙',
+                devicesText: 'PLAYSTATION, XBOX, NINTENDO SWITCH, PC, MOBILE',
+                desc: '800 V-Bucks за директно зареждане или през нашата gifting система. Точното количество за отключване на новия Battle Pass или скин от Item Shop.',
+                pill1: 'Гифтваме ти от Shop-a',
+                pill2: 'В твоя собствен акаунт',
+                pill3: 'Доживотна гаранция',
+                deliveryInfo: 'След завършване на поръчката добавяте нашия бот акаунт за приятел. След това избирате желания скин/танц от текущия Item Shop за по-малко от 5 минути.',
+                systemInfo: 'Системата ни работи 24/7 напълно автоматизирано. Не се изисква парола за Epic Games профила ви при gifting метода.',
+                warrantyInfo: '100% доживотна гаранция срещу отнемане. Всички V-Bucks са закупени легално с официални дигитални карти.'
+            },
+            {
+                id: 1002,
+                category: 'fortnite',
+                subfilter: 'vbucks',
+                title: '1500 V-Bucks',
+                subtitle: 'Скинове в твоя собствен Fortnite акаунт',
+                gameBadge: 'V-Bucks',
+                badgeColor: 'text-white bg-white/10 border-white/30',
+                deliveryTag: '⚡ НАЙ-ПОПУЛЯРЕН',
+                inStock: true,
+                priceEUR: 7.99,
+                oldPriceEUR: 14.99,
+                cardTheme: 'fortnite-cyber-1500',
+                imageUrl: 'https://i.postimg.cc/yWq1fv1x/78a1d845-3416-4dd4-b229-93a779b4cdfa.jpg',
+                realImageSrc: 'https://i.postimg.cc/yWq1fv1x/78a1d845-3416-4dd4-b229-93a779b4cdfa.jpg',
+                iconEmoji: '💎',
+                devicesText: 'PLAYSTATION, XBOX, NINTENDO SWITCH, PC, MOBILE',
+                desc: '1,500 V-Bucks чрез нашата безопасна gifting система. Точното количество за най-желаните легендарни скинове, танци и предмети в Fortnite.',
+                pill1: 'Гифтваме ти от Shop-a',
+                pill2: 'В твоя собствен акаунт',
+                pill3: 'Доживотна гаранция',
+                deliveryInfo: 'След завършване на поръчката добавяте нашия бот профил за приятел. Получавате желания скин или предмет за по-малко от 5 минути.',
+                systemInfo: 'Напълно автоматизирана gifting система с 24/7 наличност. Не се изисква парола за Epic Games профила ви.',
+                warrantyInfo: '100% доживотна гаранция за всички получени артикули.'
+            },
+            {
+                id: 102,
+                category: 'fortnite',
+                subfilter: 'vbucks',
+                title: '2400 V-Bucks',
+                subtitle: 'Скинове и сетове в твоя Fortnite акаунт',
+                gameBadge: 'V-Bucks',
+                badgeColor: 'text-white bg-white/10 border-white/30',
+                deliveryTag: '⚡ Хит цена',
+                inStock: true,
+                priceEUR: 12.00,
+                oldPriceEUR: 22.99,
+                cardTheme: 'fortnite-blue',
+                imageUrl: 'https://i.postimg.cc/PrBy4Z1W/Gemini-Generated-Image-dtb9jtdtb9jtdtb9.jpg',
+                iconEmoji: '💎',
+                devicesText: 'PLAYSTATION, XBOX, NINTENDO SWITCH, PC, MOBILE',
+                desc: 'Пакет от 2,400 V-Bucks за пълни козметични комплекти, легендарни оутфити и ексклузивни танци.',
+                pill1: 'Гифтваме ти от Shop-a',
+                pill2: 'В твоя собствен акаунт',
+                pill3: 'Доживотна гаранция',
+                deliveryInfo: 'Добавяте бота за приятел и си избирате желаните предмети на обща стойност 2,400 V-Bucks.',
+                systemInfo: 'Автоматизирана gifting опашка със статус на живо и поддръжка за всички конзоли и PC.',
+                warrantyInfo: '100% официално придобити V-Bucks с доживотна защита на акаунта.'
+            },
+            {
+                id: 103,
+                category: 'fortnite',
+                subfilter: 'vbucks',
+                title: '4500 V-Bucks',
+                subtitle: 'Голям пакет за колаборации и Bundle сетове',
+                gameBadge: 'V-Bucks',
+                badgeColor: 'text-white bg-white/10 border-white/30',
+                deliveryTag: '⚡ Топ Избор',
+                inStock: true,
+                priceEUR: 20.00,
+                oldPriceEUR: 36.99,
+                cardTheme: 'fortnite-blue',
+                imageUrl: 'https://i.postimg.cc/rww45wPs/Gemini-Generated-Image-x0oci4x0oci4x0oc.jpg',
+                iconEmoji: '👑',
+                devicesText: 'PLAYSTATION, XBOX, NINTENDO SWITCH, PC, MOBILE',
+                desc: 'Оптимален пакет от 4,500 V-Bucks с огромен процент спестяване спрямо официалния магазин на Epic Games.',
+                pill1: 'Гифтваме ти от Shop-a',
+                pill2: 'В твоя собствен акаунт',
+                pill3: 'Доживотна гаранция',
+                deliveryInfo: 'Моментален gifting от нашия бот склад или цифров ваучер код за Epic Games.',
+                systemInfo: 'Без изискване на данни за вход при gifting поръчки.',
+                warrantyInfo: 'Пълна доживотна гаранция за всеки закупен предмет.'
+            },
+            {
+                id: 106,
+                category: 'fortnite',
+                subfilter: 'vbucks',
+                title: '9000 V-Bucks',
+                subtitle: 'Специален пакет за активни геймъри',
+                gameBadge: 'V-Bucks',
+                badgeColor: 'text-white bg-white/10 border-white/30',
+                deliveryTag: '⚡ Изгодна оферта',
+                inStock: true,
+                priceEUR: 40.00,
+                oldPriceEUR: 74.99,
+                cardTheme: 'fortnite-blue',
+                imageUrl: 'https://i.postimg.cc/VvtgQk8b/Gemini-Generated-Image-mlvd9bmlvd9bmlvd.jpg',
+                iconEmoji: '💰',
+                devicesText: 'PLAYSTATION, XBOX, NINTENDO SWITCH, PC, MOBILE',
+                desc: 'Пакет от 9,000 V-Bucks за отключване на множество ексклузивни скинове, танци и коли в магазина на играта.',
+                pill1: 'Гифтваме ти от Shop-a',
+                pill2: 'В твоя собствен акаунт',
+                pill3: 'Доживотна гаранция',
+                deliveryInfo: 'Добавяте бота за приятел и получавате желаните предмети до минути след потвърждение.',
+                systemInfo: 'Работи автоматично 24/7 без риск за профила.',
+                warrantyInfo: '100% официална доживотна гаранция.'
+            },
+            {
+                id: 104,
+                category: 'fortnite',
+                subfilter: 'vbucks',
+                title: '12500 V-Bucks',
+                subtitle: 'Масивен пакет за колекционери и скинове',
+                gameBadge: 'V-Bucks',
+                badgeColor: 'text-white bg-white/10 border-white/30',
+                deliveryTag: '⚡ МЕГА ОФЕРТА',
+                inStock: true,
+                priceEUR: 50.00,
+                oldPriceEUR: 89.99,
+                cardTheme: 'fortnite-blue',
+                imageUrl: 'https://i.postimg.cc/Xvh1Th5j/Gemini-Generated-Image-c6fwdec6fwdec6fw.jpg',
+                iconEmoji: '💰',
+                devicesText: 'PLAYSTATION, XBOX, NINTENDO SWITCH, PC, MOBILE',
+                desc: 'Огромен пакет от 12,500 V-Bucks на супер изгодна цена. Осигурете си баланс за цял сезон скинове, танци и коли в Fortnite.',
+                pill1: 'Гифтваме ти от Shop-a',
+                pill2: 'В твоя собствен акаунт',
+                pill3: 'Доживотна гаранция',
+                deliveryInfo: 'Директна доставка и приоритетно обслужване в нашия Discord тикет.',
+                systemInfo: 'Глобална валидност за всяка конзола и PC.',
+                warrantyInfo: 'Доживотна гаранция и 100% бан-защита.'
+            },
+            {
+                id: 105,
+                category: 'fortnite',
+                subfilter: 'vbucks',
+                title: '25000 V-Bucks',
+                subtitle: 'Ултимативен пакет за неограничен Item Shop пазар',
+                gameBadge: 'V-Bucks',
+                badgeColor: 'text-white bg-white/10 border-white/30',
+                deliveryTag: '🔥 VIP ПАКЕТ',
+                inStock: true,
+                priceEUR: 80.00,
+                oldPriceEUR: 169.99,
+                cardTheme: 'fortnite-blue',
+                imageUrl: 'https://i.postimg.cc/MKvMGFMm/Gemini-Generated-Image-p04b6p04b6p04b6p.jpg',
+                iconEmoji: '🏆',
+                devicesText: 'PLAYSTATION, XBOX, NINTENDO SWITCH, PC, MOBILE',
+                desc: 'Ултимативният пакет от 25,000 V-Bucks! Зареди с максимална отстъпка (-53%) и купувай всичко в играта без ограничения.',
+                pill1: 'Гифтваме ти от Shop-a',
+                pill2: 'В твоя собствен акаунт',
+                pill3: 'Доживотна гаранция',
+                deliveryInfo: 'Приоритетно изпълнение в рамките на минути през Discord Ticket с индивидуален оператор.',
+                systemInfo: 'Подходящ за зареждане на личен акаунт или подаръци за приятели.',
+                warrantyInfo: '100% официална доживотна гаранция.'
+            },
+
+            // FORTNITE: CREW & PACKS
+            {
+                id: 6,
+                category: 'fortnite',
+                subfilter: 'crew',
+                title: 'Fortnite Crew (1 Месец)',
+                subtitle: 'Battle Pass + 800 V-Bucks месечен бонус + Crew Оутфит сет',
+                gameBadge: 'Fortnite Crew',
+                badgeColor: 'text-neon-violet bg-neon-violet/10 border-neon-violet/30',
+                deliveryTag: '⭐ 1 Месец',
+                inStock: true,
+                priceEUR: 6.00,
+                oldPriceEUR: 12.00,
+                cardTheme: 'fortnite-crew',
+                imageUrl: 'https://i.postimg.cc/prcCZCm1/Gemini-Generated-Image-ze6ibzze6ibzze6i.jpg',
+                iconEmoji: '🛡️',
+                devicesText: 'XBOX, PC, PLAYSTATION, SWITCH, MOBILE',
+                desc: 'Включва Battle Pass + 800 V-Bucks месечен бонус + ексклузивен месечен Crew скин сет с персонализации.',
+                pill1: 'Включва Battle Pass +800 V-Bucks месечен бонус',
+                pill2: 'В твоя собствен акаунт',
+                pill3: 'Пълна съвместимост',
+                deliveryInfo: 'Активацията се извършва чрез вход в Epic Games профила ви. Искване: към Epic профила не трябва да е бил link-ван друг Xbox акаунт преди това.',
+                systemInfo: 'Наш служител влиза еднократно в акаунта и начислява Fortnite Crew абонамента. Процесът отнема 5-10 минути.',
+                warrantyInfo: 'Гаранция за успешно начисляване на наградите веднага след вход в играта.'
+            },
+            {
+                id: 602,
+                category: 'fortnite',
+                subfilter: 'crew',
+                title: 'Fortnite Crew (3 Месеца)',
+                subtitle: '3x Battle Pass + 2,400 V-Bucks + 3 ексклузивни скина',
+                gameBadge: 'Fortnite Crew',
+                badgeColor: 'text-neon-violet bg-neon-violet/10 border-neon-violet/30',
+                deliveryTag: '⭐ 3 Месеца',
+                inStock: true,
+                priceEUR: 16.00,
+                oldPriceEUR: 36.00,
+                cardTheme: 'fortnite-crew',
+                imageUrl: 'https://i.postimg.cc/mrT9PMDR/Gemini-Generated-Image-lw5dl7lw5dl7lw5d.jpg',
+                iconEmoji: '🛡️',
+                devicesText: 'XBOX, PC, PLAYSTATION, SWITCH, MOBILE',
+                desc: '3-месечен абонамент за Fortnite Crew: Включва Battle Pass + 800 V-Bucks месечен бонус за всеки от трите месеца (общо 2,400 V-Bucks) и 3 ексклузивни месечни скина.',
+                pill1: 'Включва Battle Pass +800 V-Bucks месечен бонус',
+                pill2: 'В твоя собствен акаунт',
+                pill3: 'Пълна съвместимост',
+                deliveryInfo: 'Активацията се извършва през защитен вход от администратор. Изискване: към Epic профила да не е свързван друг Xbox акаунт.',
+                systemInfo: 'Абонаментът се зарежда директно в акаунта за следващите 3 месеца.',
+                warrantyInfo: 'Пълна гаранция за целия период на абонамента.'
+            },
+            {
+                id: 603,
+                category: 'fortnite',
+                subfilter: 'crew',
+                title: 'Fortnite Crew (6 Месеца)',
+                subtitle: '6x Battle Pass + 4,800 V-Bucks + 6 скин сета',
+                gameBadge: 'Fortnite Crew',
+                badgeColor: 'text-neon-violet bg-neon-violet/10 border-neon-violet/30',
+                deliveryTag: '⭐ 6 Месеца VIP',
+                inStock: true,
+                priceEUR: 30.00,
+                oldPriceEUR: 72.00,
+                cardTheme: 'fortnite-crew',
+                imageUrl: 'https://i.postimg.cc/HLLQSXgD/Gemini-Generated-Image-7g1k8p7g1k8p7g1k.jpg',
+                iconEmoji: '👑',
+                devicesText: 'XBOX, PC, PLAYSTATION, SWITCH, MOBILE',
+                desc: 'Най-изгодният полугодишен абонамент за Fortnite Crew: Включва Battle Pass + 800 V-Bucks месечен бонус всеки месец (общо 4,800 V-Bucks), всички сезонни батъл пасове и скинове за 6 месеца.',
+                pill1: 'Включва Battle Pass +800 V-Bucks месечен бонус',
+                pill2: 'В твоя собствен акаунт',
+                pill3: 'Максимално спестяване',
+                deliveryInfo: 'Активацията се извършва еднократно през защитена конзолна система от наш администратор.',
+                systemInfo: 'Изискване: без предварително свързван друг Xbox профил към Epic Games акаунта.',
+                warrantyInfo: 'Доживотна гаранция и пълно обслужване.'
+            },
+            {
+                id: 7,
+                category: 'fortnite',
+                subfilter: 'packs',
+                title: 'Forsworn Trooper',
+                subtitle: 'Лимитиран скин бъндъл + V-Bucks куестове',
+                gameBadge: 'Packs / Бъндли',
+                badgeColor: 'text-neon-amber bg-neon-amber/10 border-neon-amber/30',
+                deliveryTag: '🎒 Пълен Скин Пакет',
+                inStock: true,
+                priceEUR: 10.00,
+                oldPriceEUR: 100.00,
+                cardTheme: 'fortnite-pack',
+                imageUrl: 'https://i.postimg.cc/1tbtV9Np/Gemini-Generated-Image-rpmvt2rpmvt2rpmv.jpg',
+                iconEmoji: '🎒',
+                devicesText: 'PC, PLAYSTATION, XBOX, NINTENDO SWITCH',
+                desc: 'Официален бъндъл пакет: включва ексклузивен Forsworn Trooper скин оутфит, кирка, Back Bling и куестове.',
+                pill1: 'Ексклузивен скин пакет',
+                pill2: 'В твоя собствен акаунт',
+                pill3: 'Доживотна гаранция',
+                deliveryInfo: 'Глобален цифров лицензионен код за активация в Epic Games или доставка чрез gifting.',
+                systemInfo: 'След активация отключвате скина веднага във вашия Locker.',
+                warrantyInfo: 'Оригинален код с валидност за постоянно.'
+            },
+            {
+                id: 702,
+                category: 'fortnite',
+                subfilter: 'packs',
+                title: 'A Goat',
+                subtitle: 'Ексклузивен скин бъндъл за всички платформи',
+                gameBadge: 'Packs / Бъндли',
+                badgeColor: 'text-neon-amber bg-neon-amber/10 border-neon-amber/30',
+                deliveryTag: '🐐 Легендарен Скин',
+                inStock: true,
+                priceEUR: 16.00,
+                oldPriceEUR: 19.99,
+                cardTheme: 'fortnite-pack',
+                imageUrl: 'https://i.postimg.cc/05MgVYL8/Gemini-Generated-Image-zb6h7jzb6h7jzb6h.jpg',
+                iconEmoji: '🐐',
+                devicesText: 'PC, PLAYSTATION, XBOX, NINTENDO SWITCH, MOBILE',
+                desc: 'Ексклузивен скин пакет "A Goat" за Fortnite с пълна съвместимост за всички платформи и доживотна гаранция.',
+                pill1: 'Ексклузивен скин оутфит',
+                pill2: 'В твоя собствен акаунт',
+                pill3: 'Доживотна гаранция',
+                deliveryInfo: 'Глобален цифров ключ или безопасна доставка чрез gifting системата.',
+                systemInfo: 'Добавяте нашия бот профил за приятел и получавате скина директно в играта.',
+                warrantyInfo: '100% официален и сигурен продукт с доживотна гаранция.'
+            },
+
+            // MINECRAFT: ONLY ACCOUNTS
+            {
+                id: 8,
+                category: 'minecraft',
+                subfilter: 'accounts',
+                title: 'Minecraft Акаунт',
+                subtitle: 'Пълен достъп за компютър (Java + Bedrock)',
+                gameBadge: 'Full Access',
+                badgeColor: 'text-neon-emerald bg-neon-emerald/10 border-neon-emerald/30',
+                deliveryTag: '🔒 Пълен Достъп (FA)',
+                inStock: true,
+                priceEUR: 15.00,
+                oldPriceEUR: 30.00,
+                cardTheme: 'minecraft-fa',
+                imageUrl: 'https://i.postimg.cc/0yxDWmPk/Gemini-Generated-Image-z55i9wz55i9wz55i.jpg',
+                iconEmoji: '⛏️',
+                devicesText: 'PC, MAC, LINUX (OFFICIAL LAUNCHER)',
+                desc: 'Пълен достъп (FA): сменяте имейл, парола, скин и потребителско име на Minecraft.net. Включва и Java Edition, и Bedrock Edition заедно.',
+                pill1: 'Смяна на Имейл & Парола',
+                pill2: 'Включва Java & Bedrock',
+                pill3: 'Доживотна гаранция',
+                deliveryInfo: 'Получавате веднага данни Mail:Password за Microsoft акаунта на екрана и на вашия имейл.',
+                systemInfo: 'Влизате в login.live.com и заменяте имейла и паролата със свои лични данни.',
+                warrantyInfo: 'Доживотна поддръжка и 100% чист статус без банове.'
+            },
+
+            // ROCKSTAR / PC: ONLY GTA V WITH NEW NEON CARD IMAGE AND 15€ / 30€
+            {
+                id: 13,
+                category: 'steam',
+                subfilter: 'keys',
+                title: 'Grand Theft Auto V: Premium Edition Rockstar Key',
+                subtitle: 'Пълна игра + GTA Online + $1,000,000 бонус кеш',
+                gameBadge: 'Rockstar Key',
+                badgeColor: 'text-neon-pink bg-neon-pink/10 border-neon-pink/30',
+                deliveryTag: '⚡ Global Key',
+                inStock: true,
+                priceEUR: 15.00,
+                oldPriceEUR: 30.00,
+                cardTheme: 'steam-gtav',
+                imageUrl: 'https://i.postimg.cc/W1k4GT5G/Gemini-Generated-Image-dpet5ddpet5ddpet.jpg',
+                iconEmoji: '🚗',
+                devicesText: 'PC / ROCKSTAR LAUNCHER',
+                desc: 'Пълната GTA V кампания + GTA Online + бонус Criminal Enterprise Starter Pack ($1,000,000 кеш в играта и безплатни имоти).',
+                pill1: 'Пълна игра + $1M Кеш',
+                pill2: 'В твоя собствен Rockstar акаунт',
+                pill3: 'Доживотна гаранция',
+                deliveryInfo: 'Мигновен цифров ключ за активиране в Rockstar Launcher.',
+                systemInfo: 'След активация играта се тегли директно през високоскоростните Rockstar сървъри.',
+                warrantyInfo: 'Оригинален дигитален ключ с доживотен лиценз.'
+            },
+            {
+                id: 14,
+                category: 'steam',
+                subfilter: 'keys',
+                title: 'Red Dead Redemption 2 Rockstar Key',
+                subtitle: 'Пълна игра + Red Dead Online + Story Mode',
+                gameBadge: 'Rockstar Key',
+                badgeColor: 'text-neon-pink bg-neon-pink/10 border-neon-pink/30',
+                deliveryTag: '⚡ Global Key',
+                inStock: true,
+                priceEUR: 20.00,
+                oldPriceEUR: 60.00,
+                cardTheme: 'steam-rdr2',
+                imageUrl: 'https://i.postimg.cc/6p3S7fh2/Gemini-Generated_Image-ch0tclch0tclch0t.jpg',
+                iconEmoji: '🤠',
+                devicesText: 'PC / ROCKSTAR LAUNCHER',
+                desc: 'Пълната епична история на Arthur Morgan и бандата Van der Linde + Red Dead Online с мигновен ключ за Rockstar Launcher.',
+                pill1: 'Пълна игра + Story Mode',
+                pill2: 'В твоя собствен Rockstar акаунт',
+                pill3: 'Доживотна гаранция',
+                deliveryInfo: 'Мигновен цифров ключ за активиране в Rockstar Launcher.',
+                systemInfo: 'След активация играта се тегли директно през високоскоростните Rockstar сървъри.',
+                warrantyInfo: 'Оригинален дигитален ключ с доживотен лиценз.'
+            },
+            {
+                id: 15,
+                category: 'steam',
+                subfilter: 'keys',
+                title: 'Assetto Corsa (Ultimate Edition) Steam Key',
+                subtitle: 'Най-реалистичният симулатор на шофиране + Всички DLC пакети',
+                gameBadge: 'Steam Key',
+                badgeColor: 'text-neon-pink bg-neon-pink/10 border-neon-pink/30',
+                deliveryTag: '⚡ Global Key',
+                inStock: true,
+                priceEUR: 20.00,
+                oldPriceEUR: 80.00,
+                cardTheme: 'steam-assetto',
+                imageUrl: 'https://i.postimg.cc/xjFJL0vL/Gemini-Generated_Image-tw3ovqtw3ovqtw3o.jpg',
+                iconEmoji: '🏎️',
+                devicesText: 'PC / STEAM',
+                desc: 'Assetto Corsa Ultimate Edition включва оригиналната игра и всички 17 DLC пакета (Dream Pack, Red Pack, Tripl3 Pack, Ferrari 70th Anniversary, Porsche Packs и др.).',
+                pill1: 'Пълна игра + Всички DLC',
+                pill2: 'В твоя собствен Steam акаунт',
+                pill3: 'Доживотна гаранция',
+                deliveryInfo: 'Мигновен цифров ключ за активиране в Steam платформата.',
+                systemInfo: 'След активация играта се добавя завинаги към вашата Steam библиотека.',
+                warrantyInfo: 'Оригинален дигитален лиценз с доживотна гаранция.'
+            }
+        ];
+
+        // Custom High-Detail Vector Illustration Generator for each card theme
+        function generateProductCardArt(product, isDetail = false) {
+            const hClass = isDetail ? 'h-64 sm:h-80' : 'h-44 sm:h-48';
+
+            // Проверка за зададена снимка (заменя цялата картичка от край до край)
+            const savedCustomImage = localStorage.getItem(`custom_prod_img_${product.id}`) || product.imageUrl;
+            if (savedCustomImage) {
+                if (isDetail) {
+                    return `
+                        <div class="w-full h-full min-h-[440px] sm:min-h-[500px] rounded-[34px] overflow-hidden relative bg-dark-950 border border-neon-cyan/40 shadow-[0_20px_50px_rgba(0,140,230,0.35)] flex items-center justify-center">
+                            <img src="${savedCustomImage}" alt="${product.title}" class="w-full h-full object-cover object-center" />
+                        </div>
+                    `;
+                }
+                return `
+                    <div class="w-full ${hClass} rounded-2xl overflow-hidden relative bg-dark-950 border border-neon-cyan/40 shadow-lg shadow-neon-cyan/10">
+                        <img src="${savedCustomImage}" alt="${product.title}" class="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-105" />
+                    </div>
+                `;
+            }
+
+            // 1. Fortnite V-Bucks (1:1 with Screenshot 1)
+            if (product.cardTheme === 'fortnite-blue') {
+                return `
+                    <div class="w-full ${hClass} rounded-2xl bg-gradient-to-b from-[#00d2ff] via-[#00b4f8] to-[#0092e0] p-4 flex flex-col justify-between relative overflow-hidden text-center shadow-inner select-none">
+                        <!-- Top Header matching screenshot 1 -->
+                        <div class="relative z-10 pt-1">
+                            <h2 class="font-display font-black text-3xl sm:text-4xl text-white tracking-wider leading-none drop-shadow-[0_3px_8px_rgba(0,100,180,0.6)] uppercase" style="font-family: 'Space Grotesk', Impact, sans-serif;">
+                                FORTNITE
+                            </h2>
+                            <h3 class="font-display font-black text-lg sm:text-xl text-white tracking-wide leading-tight mt-1 drop-shadow-[0_2px_4px_rgba(0,0,0,0.35)] uppercase">
+                                ${product.title}
+                            </h3>
+                        </div>
+
+                        <!-- Center Coin Piles (Exact 1:1 SVG representation of Screenshot 1) -->
+                        <div class="my-auto py-1 flex items-center justify-center relative z-10">
+                            <svg viewBox="0 0 240 135" class="w-full max-h-36 drop-shadow-[0_12px_16px_rgba(0,50,110,0.45)]" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="vbSilverGrad" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="#f8fafc"/>
+                                        <stop offset="40%" stop-color="#cbd5e1"/>
+                                        <stop offset="100%" stop-color="#94a3b8"/>
+                                    </linearGradient>
+                                    <linearGradient id="vbSideGrad" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="#94a3b8"/>
+                                        <stop offset="100%" stop-color="#64748b"/>
+                                    </linearGradient>
+                                    <filter id="cyanGlow" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#00f0ff" flood-opacity="0.9"/>
+                                    </filter>
+                                </defs>
+
+                                <!-- Left background stack -->
+                                <g transform="translate(15, 20)">
+                                    <path d="M40,55 C40,50 68,46 95,46 C122,46 150,50 150,55 L150,85 C150,90 122,94 95,94 C68,94 40,90 40,85 Z" fill="url(#vbSideGrad)"/>
+                                    <ellipse cx="95" cy="85" rx="55" ry="11" fill="url(#vbSilverGrad)" stroke="#67e8f9" stroke-width="1.2"/>
+                                    <ellipse cx="95" cy="74" rx="55" ry="11" fill="url(#vbSilverGrad)" stroke="#67e8f9" stroke-width="1.2"/>
+                                    <ellipse cx="95" cy="63" rx="55" ry="11" fill="url(#vbSilverGrad)" stroke="#67e8f9" stroke-width="1.2"/>
+                                    <ellipse cx="95" cy="52" rx="55" ry="11" fill="url(#vbSilverGrad)" stroke="#67e8f9" stroke-width="1.5"/>
+                                </g>
+
+                                <!-- Right stack -->
+                                <g transform="translate(65, 30)">
+                                    <path d="M40,55 C40,50 65,46 90,46 C115,46 140,50 140,55 L140,85 C140,90 115,94 90,94 C65,94 40,90 40,85 Z" fill="url(#vbSideGrad)"/>
+                                    <ellipse cx="90" cy="85" rx="50" ry="10" fill="url(#vbSilverGrad)" stroke="#67e8f9" stroke-width="1.2"/>
+                                    <ellipse cx="90" cy="74" rx="50" ry="10" fill="url(#vbSilverGrad)" stroke="#67e8f9" stroke-width="1.2"/>
+                                    <ellipse cx="90" cy="63" rx="50" ry="10" fill="url(#vbSilverGrad)" stroke="#67e8f9" stroke-width="1.2"/>
+                                    <ellipse cx="90" cy="52" rx="50" ry="10" fill="url(#vbSilverGrad)" stroke="#67e8f9" stroke-width="1.5"/>
+                                </g>
+
+                                <!-- Center Front main stack -->
+                                <g transform="translate(25, 42)">
+                                    <path d="M40,55 C40,50 68,46 95,46 C122,46 150,50 150,55 L150,85 C150,90 122,94 95,94 C68,94 40,90 40,85 Z" fill="url(#vbSideGrad)"/>
+                                    <ellipse cx="95" cy="85" rx="55" ry="11" fill="url(#vbSilverGrad)" stroke="#67e8f9" stroke-width="1.2"/>
+                                    <ellipse cx="95" cy="74" rx="55" ry="11" fill="url(#vbSilverGrad)" stroke="#67e8f9" stroke-width="1.2"/>
+                                    <ellipse cx="95" cy="63" rx="55" ry="11" fill="url(#vbSilverGrad)" stroke="#67e8f9" stroke-width="1.5"/>
+                                </g>
+
+                                <!-- Foreground tilted shining V-Coin (Left) -->
+                                <g transform="translate(80, 80) rotate(-14)">
+                                    <ellipse cx="30" cy="24" rx="28" ry="22" fill="url(#vbSilverGrad)" stroke="#38bdf8" stroke-width="2.5"/>
+                                    <ellipse cx="30" cy="24" rx="22" ry="17" fill="none" stroke="#00f0ff" stroke-width="2.2" filter="url(#cyanGlow)"/>
+                                    <path d="M22,17 L30,31 L38,17" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M22,17 L30,31 L38,17" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </g>
+
+                                <!-- Foreground tilted shining V-Coin (Right - Prominent) -->
+                                <g transform="translate(135, 70) rotate(16)">
+                                    <ellipse cx="34" cy="28" rx="32" ry="25" fill="url(#vbSilverGrad)" stroke="#38bdf8" stroke-width="2.5"/>
+                                    <ellipse cx="34" cy="28" rx="25" ry="19" fill="none" stroke="#00f0ff" stroke-width="2.8" filter="url(#cyanGlow)"/>
+                                    <path d="M25,20 L34,36 L43,20" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M25,20 L34,36 L43,20" stroke="#0284c7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                </g>
+                            </svg>
+                        </div>
+
+                        <!-- Bottom Banner matching screenshot 1 footer -->
+                        <div class="relative z-10 w-full bg-[#0092e0]/85 backdrop-blur-sm rounded-xl px-3 py-2 border border-white/20 flex items-center justify-between mt-auto">
+                            <div class="text-left leading-tight">
+                                <div class="text-[9px] font-black uppercase tracking-wider text-sky-100 font-sans">
+                                    SUPPORTED DEVICES
+                                </div>
+                                <div class="text-[9.5px] font-extrabold text-white tracking-tight truncate max-w-[150px] sm:max-w-none">
+                                    PLAYSTATION, XBOX, NINTENDO SWITCH
+                                </div>
+                            </div>
+                            <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-cyan-300 to-sky-600 p-0.5 shadow-md flex items-center justify-center shrink-0 ml-1.5">
+                                <div class="w-full h-full rounded-full bg-[#0082c8] flex items-center justify-center border border-white/40">
+                                    <span class="text-[10px] font-black text-white">V</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 2. Fortnite Crew (1:1 with Screenshot 2 - Siren Warrior Skin + Right Passes Stack)
+            if (product.cardTheme === 'fortnite-crew') {
+                return `
+                    <div class="w-full ${hClass} rounded-2xl bg-gradient-to-b from-[#38bdf8] via-[#0284c7] to-[#0369a1] p-3.5 flex flex-col justify-between relative overflow-hidden select-none shadow-inner">
+                        <!-- Top Header matching screenshot 2 -->
+                        <div class="relative z-10 text-center pt-0.5">
+                            <div class="text-xs sm:text-sm font-black text-white tracking-widest uppercase font-display drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]">
+                                1 МЕСЕЦ
+                            </div>
+                            <h2 class="font-display font-black text-3xl sm:text-4xl text-white tracking-wider leading-none drop-shadow-[0_4px_8px_rgba(0,70,140,0.6)] uppercase mt-0.5" style="font-family: 'Space Grotesk', Impact, sans-serif;">
+                                FORTNITE
+                            </h2>
+                        </div>
+
+                        <!-- Center: Left Skin + Right 6 Passes Badges List (Screenshot 2 Match) -->
+                        <div class="relative z-10 flex items-center justify-between my-auto py-1">
+                            <!-- Left: Siren Warrior Skin Silhouette & Spear -->
+                            <div class="w-[45%] h-36 sm:h-44 relative flex items-center justify-center">
+                                <svg viewBox="0 0 140 180" class="w-full h-full drop-shadow-[0_8px_16px_rgba(0,0,0,0.5)]" fill="none">
+                                    <defs>
+                                        <linearGradient id="skinArmGrad" x1="0" y1="0" x2="1" y2="1">
+                                            <stop offset="0%" stop-color="#1e293b"/>
+                                            <stop offset="50%" stop-color="#0f172a"/>
+                                            <stop offset="100%" stop-color="#020617"/>
+                                        </linearGradient>
+                                        <linearGradient id="bodyBlueGrad" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="0%" stop-color="#bae6fd"/>
+                                            <stop offset="50%" stop-color="#7dd3fc"/>
+                                            <stop offset="100%" stop-color="#38bdf8"/>
+                                        </linearGradient>
+                                        <linearGradient id="silverPlates" x1="0" y1="0" x2="1" y2="1">
+                                            <stop offset="0%" stop-color="#f8fafc"/>
+                                            <stop offset="50%" stop-color="#94a3b8"/>
+                                            <stop offset="100%" stop-color="#475569"/>
+                                        </linearGradient>
+                                    </defs>
+
+                                    <!-- Flowing Black/Midnight Hair -->
+                                    <path d="M55,30 C35,20 20,45 15,70 C25,65 35,68 40,65 C30,75 25,95 20,110 C32,98 42,92 50,88 Z" fill="#090d16"/>
+                                    <path d="M85,32 C105,25 125,45 130,75 C120,68 110,70 102,68 C115,80 120,105 125,120 C110,102 98,95 90,90 Z" fill="#090d16"/>
+
+                                    <!-- Pale Blue Aquatic Skin: Head & Neck -->
+                                    <path d="M55,38 C55,20 85,20 85,38 C85,55 78,65 70,68 C62,65 55,55 55,38 Z" fill="url(#bodyBlueGrad)"/>
+                                    <path d="M63,65 L63,80 L77,80 L77,65 Z" fill="url(#bodyBlueGrad)"/>
+
+                                    <!-- Silver Tiara / Crown on Forehead -->
+                                    <polygon points="56,30 70,20 84,30 78,35 70,28 62,35" fill="url(#silverPlates)" stroke="#00f0ff" stroke-width="0.8"/>
+                                    <circle cx="70" cy="28" r="2" fill="#facc15"/>
+
+                                    <!-- Glowing Yellow Siren Eyes & Smile -->
+                                    <ellipse cx="64" cy="40" rx="3.5" ry="2" fill="#fde047" stroke="#ca8a04" stroke-width="0.6"/>
+                                    <ellipse cx="76" cy="40" rx="3.5" ry="2" fill="#fde047" stroke="#ca8a04" stroke-width="0.6"/>
+                                    <path d="M66,54 Q70,58 74,54" stroke="#0f172a" stroke-width="1.2" fill="none"/>
+
+                                    <!-- Sleek Silver/Black Armor Top -->
+                                    <path d="M56,76 C52,90 50,110 52,130 C60,132 80,132 88,130 C90,110 88,90 84,76 Z" fill="url(#skinArmGrad)"/>
+                                    <path d="M57,86 C62,78 70,78 70,92 C70,78 78,78 83,86 C83,96 70,104 70,104 C70,104 57,96 57,86 Z" fill="url(#silverPlates)" stroke="#cbd5e1" stroke-width="1"/>
+                                    <polygon points="70,90 73,95 70,100 67,95" fill="#f59e0b"/>
+
+                                    <!-- Armor Waist, Thighs & Fins -->
+                                    <path d="M52,126 C45,140 40,165 42,180 L62,180 C65,160 68,145 68,130 Z" fill="url(#skinArmGrad)"/>
+                                    <path d="M88,126 C95,140 100,165 98,180 L78,180 C75,160 72,145 72,130 Z" fill="url(#skinArmGrad)"/>
+                                    <polygon points="42,145 32,160 44,165" fill="#0f172a" stroke="#38bdf8" stroke-width="0.8"/>
+                                    <polygon points="98,145 108,160 96,165" fill="#0f172a" stroke="#38bdf8" stroke-width="0.8"/>
+
+                                    <!-- Silver Spear / Trident across body -->
+                                    <line x1="12" y1="70" x2="135" y2="155" stroke="url(#silverPlates)" stroke-width="4" stroke-linecap="round"/>
+                                    <g transform="translate(112, 138) rotate(32)">
+                                        <polygon points="15,0 24,-18 30,0 24,-6" fill="url(#silverPlates)" stroke="#00f0ff" stroke-width="1.2"/>
+                                        <polygon points="5,-6 8,-22 15,-10" fill="url(#silverPlates)"/>
+                                        <polygon points="35,-6 32,-22 25,-10" fill="url(#silverPlates)"/>
+                                    </g>
+                                </svg>
+                            </div>
+
+                            <!-- Right: The 6 Passes from Screenshot 2 -->
+                            <div class="w-[55%] flex flex-col justify-center space-y-1.5 pl-1">
+                                <!-- 1. Battle Pass -->
+                                <div class="flex items-center gap-2">
+                                    <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-amber-400 to-yellow-200 border border-amber-500 flex items-center justify-center shadow shrink-0 text-amber-900 font-black text-[10px]">
+                                        ★
+                                    </div>
+                                    <span class="text-[10px] sm:text-[11.5px] font-black text-white tracking-wide uppercase drop-shadow font-sans">
+                                        BATTLE PASS
+                                    </span>
+                                </div>
+
+                                <!-- 2. OG Pass -->
+                                <div class="flex items-center gap-2">
+                                    <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-yellow-500 to-amber-300 border border-yellow-600 flex items-center justify-center shadow shrink-0 text-yellow-950 font-black text-[10px]">
+                                        🏆
+                                    </div>
+                                    <span class="text-[10px] sm:text-[11.5px] font-black text-white tracking-wide uppercase drop-shadow font-sans">
+                                        OG PASS
+                                    </span>
+                                </div>
+
+                                <!-- 3. Lego Pass -->
+                                <div class="flex items-center gap-2">
+                                    <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-amber-400 to-yellow-100 border border-amber-400 flex items-center justify-center shadow shrink-0 text-amber-900 font-black text-[10px]">
+                                        🧱
+                                    </div>
+                                    <span class="text-[10px] sm:text-[11.5px] font-black text-white tracking-wide uppercase drop-shadow font-sans">
+                                        LEGO PASS
+                                    </span>
+                                </div>
+
+                                <!-- 4. Music Pass -->
+                                <div class="flex items-center gap-2">
+                                    <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-amber-500 to-yellow-200 border border-amber-600 flex items-center justify-center shadow shrink-0 text-amber-900 font-black text-[10px]">
+                                        🎵
+                                    </div>
+                                    <span class="text-[10px] sm:text-[11.5px] font-black text-white tracking-wide uppercase drop-shadow font-sans">
+                                        MUSIC PASS
+                                    </span>
+                                </div>
+
+                                <!-- 5. Rocket Pass -->
+                                <div class="flex items-center gap-2">
+                                    <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-sky-400 to-blue-600 border border-white/60 flex items-center justify-center shadow shrink-0 text-white font-black text-[10px]">
+                                        🚗
+                                    </div>
+                                    <span class="text-[10px] sm:text-[11.5px] font-black text-white tracking-wide uppercase drop-shadow font-sans">
+                                        ROCKET PASS
+                                    </span>
+                                </div>
+
+                                <!-- 6. 800 V-Bucks -->
+                                <div class="flex items-center gap-2">
+                                    <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-slate-200 to-slate-400 border border-cyan-400 flex items-center justify-center shadow shrink-0 text-slate-900 font-black text-[10px]">
+                                        V
+                                    </div>
+                                    <span class="text-[10px] sm:text-[11.5px] font-black text-white tracking-wide uppercase drop-shadow font-sans">
+                                        800 V-BUCKS
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Banner matching screenshot 2 footer -->
+                        <div class="relative z-10 w-full bg-[#0092e0]/85 backdrop-blur-sm rounded-xl px-3 py-2 border border-white/20 flex items-center justify-between mt-auto">
+                            <div class="text-left leading-tight">
+                                <div class="text-[9px] font-black uppercase tracking-wider text-sky-100 font-sans">
+                                    SUPPORTED DEVICES
+                                </div>
+                                <div class="text-[9.5px] font-extrabold text-white tracking-tight truncate max-w-[140px] sm:max-w-none">
+                                    PLAYSTATION, NINTENDO SWITCH
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-1.5 shrink-0 ml-1.5">
+                                <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-yellow-400 to-amber-500 flex items-center justify-center text-amber-950 font-black text-[9px] shadow">
+                                    ★
+                                </div>
+                                <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-cyan-300 to-sky-600 p-0.5 shadow-md flex items-center justify-center">
+                                    <div class="w-full h-full rounded-full bg-[#0082c8] flex items-center justify-center border border-white/40">
+                                        <span class="text-[10px] font-black text-white">V</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 3. Fortnite Pack / Bundles (Amber Gold & Rogue Backpack Art)
+            if (product.cardTheme === 'fortnite-pack') {
+                return `
+                    <div class="w-full ${hClass} rounded-xl bg-gradient-to-br from-[#78350f] via-[#b45309] to-[#d97706] p-3 flex flex-col items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(253,224,71,0.3)_0%,transparent_60%)]"></div>
+                        <svg viewBox="0 0 200 140" class="w-full h-full drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)] z-10" fill="none">
+                            <rect x="55" y="45" width="90" height="70" rx="14" fill="#1c1917" stroke="#f59e0b" stroke-width="3"/>
+                            <path d="M75,45 C75,25 125,25 125,45" stroke="#f59e0b" stroke-width="5" fill="none" stroke-linecap="round"/>
+                            <rect x="68" y="60" width="64" height="20" rx="5" fill="#f59e0b"/>
+                            <circle cx="100" cy="70" r="4" fill="#1c1917"/>
+                            <path d="M80,92 L120,92" stroke="#d97706" stroke-width="4" stroke-linecap="round"/>
+                        </svg>
+                        <span class="absolute bottom-1 font-display font-black text-yellow-200 text-xs tracking-wider uppercase drop-shadow">
+                            ROGUE SCOUT PACK
+                        </span>
+                    </div>
+                `;
+            }
+
+            // 4. Minecraft: Full Access (Pixel Grass/Dirt block & Diamond Pickaxe)
+            if (product.cardTheme === 'minecraft-fa') {
+                return `
+                    <div class="w-full ${hClass} rounded-xl bg-gradient-to-b from-[#14532d] via-[#166534] to-[#15803d] p-3 flex flex-col items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#86efac_2px,transparent_2px)] [background-size:14px_14px]"></div>
+                        <svg viewBox="0 0 180 130" class="w-full h-full drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)] z-10" fill="none">
+                            <!-- Minecraft Isometric Cube -->
+                            <!-- Top green grass surface -->
+                            <polygon points="90,20 145,50 90,80 35,50" fill="#22c55e" stroke="#15803d" stroke-width="2"/>
+                            <!-- Left dirt surface -->
+                            <polygon points="35,50 90,80 90,120 35,90" fill="#78350f" stroke="#451a03" stroke-width="2"/>
+                            <!-- Right dirt surface -->
+                            <polygon points="90,80 145,50 145,90 90,120" fill="#92400e" stroke="#451a03" stroke-width="2"/>
+                            <!-- Diamond Pickaxe overlay -->
+                            <path d="M125,35 L145,15 L155,25 L135,45" fill="#38bdf8"/>
+                            <line x1="85" y1="95" x2="135" y2="45" stroke="#78350f" stroke-width="6" stroke-linecap="round"/>
+                        </svg>
+                        <span class="absolute bottom-1 font-display font-black text-emerald-300 text-xs tracking-wider uppercase drop-shadow">
+                            JAVA & BEDROCK FA
+                        </span>
+                    </div>
+                `;
+            }
+
+            // 5. Minecraft: Hypixel Unbanned (Shield & Diamond Sword)
+            if (product.cardTheme === 'minecraft-hypixel') {
+                return `
+                    <div class="w-full ${hClass} rounded-xl bg-gradient-to-b from-[#0f172a] via-[#1e293b] to-[#047857] p-3 flex flex-col items-center justify-center relative overflow-hidden">
+                        <svg viewBox="0 0 180 130" class="w-full h-full drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)] z-10" fill="none">
+                            <!-- Shield -->
+                            <path d="M90,15 L135,35 L135,75 C135,100 90,120 90,120 C90,120 45,100 45,75 L45,35 Z" fill="#065f46" stroke="#34d399" stroke-width="3"/>
+                            <!-- Diamond Sword in center -->
+                            <path d="M85,35 L95,35 L95,85 L85,85 Z" fill="#38bdf8"/>
+                            <path d="M90,25 L95,35 L85,35 Z" fill="#0284c7"/>
+                            <rect x="75" y="85" width="30" height="6" rx="2" fill="#fbbf24"/>
+                            <rect x="87" y="91" width="6" height="15" rx="1" fill="#78350f"/>
+                        </svg>
+                        <span class="absolute bottom-1 font-display font-black text-emerald-300 text-xs tracking-wider uppercase drop-shadow">
+                            HYPIXEL UNBANNED
+                        </span>
+                    </div>
+                `;
+            }
+
+            // 6. Minecraft: Fresh Migration (Golden Key & Microsoft Logo)
+            if (product.cardTheme === 'minecraft-migrated') {
+                return `
+                    <div class="w-full ${hClass} rounded-xl bg-gradient-to-b from-[#042f2e] via-[#115e59] to-[#0d9488] p-3 flex flex-col items-center justify-center relative overflow-hidden">
+                        <svg viewBox="0 0 180 130" class="w-full h-full drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)] z-10" fill="none">
+                            <rect x="55" y="30" width="32" height="32" fill="#f87171" rx="4"/>
+                            <rect x="93" y="30" width="32" height="32" fill="#4ade80" rx="4"/>
+                            <rect x="55" y="68" width="32" height="32" fill="#60a5fa" rx="4"/>
+                            <rect x="93" y="68" width="32" height="32" fill="#facc15" rx="4"/>
+                            <!-- Checkmark badge -->
+                            <circle cx="130" cy="90" r="18" fill="#10b981" stroke="#ffffff" stroke-width="2"/>
+                            <path d="M123,90 L128,95 L138,83" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span class="absolute bottom-1 font-display font-black text-teal-200 text-xs tracking-wider uppercase drop-shadow">
+                            FRESH MIGRATION
+                        </span>
+                    </div>
+                `;
+            }
+
+            // 7. Minecraft: Cape Account (Floating Royal Cape)
+            if (product.cardTheme === 'minecraft-cape') {
+                return `
+                    <div class="w-full ${hClass} rounded-xl bg-gradient-to-b from-[#312e81] via-[#3730a3] to-[#4338ca] p-3 flex flex-col items-center justify-center relative overflow-hidden">
+                        <svg viewBox="0 0 180 130" class="w-full h-full drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)] z-10" fill="none">
+                            <!-- Flowing Cape -->
+                            <path d="M65,25 L115,25 L125,105 C115,115 65,115 55,105 Z" fill="#dc2626" stroke="#fbbf24" stroke-width="3"/>
+                            <!-- Golden emblem in center -->
+                            <polygon points="90,45 100,60 80,60" fill="#fde047"/>
+                            <rect x="70" y="70" width="40" height="8" rx="2" fill="#fbbf24"/>
+                        </svg>
+                        <span class="absolute bottom-1 font-display font-black text-indigo-200 text-xs tracking-wider uppercase drop-shadow">
+                            VANILLA CAPE
+                        </span>
+                    </div>
+                `;
+            }
+
+            // 8. Steam: CS2 Prime Status Key (Golden CS coin & weapon badge)
+            if (product.cardTheme === 'steam-cs2') {
+                return `
+                    <div class="w-full ${hClass} rounded-xl bg-gradient-to-b from-[#18181b] via-[#27272a] to-[#ca8a04] p-3 flex flex-col items-center justify-center relative overflow-hidden">
+                        <svg viewBox="0 0 180 130" class="w-full h-full drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)] z-10" fill="none">
+                            <circle cx="90" cy="65" r="46" fill="#18181b" stroke="#eab308" stroke-width="5"/>
+                            <circle cx="90" cy="65" r="38" fill="url(#csPrimeGrad)" stroke="#ca8a04" stroke-width="2"/>
+                            <!-- CS Counter Terrorist Soldier silhouette -->
+                            <circle cx="90" cy="48" r="9" fill="#18181b"/>
+                            <path d="M78,65 L102,65 L98,82 L82,82 Z" fill="#18181b"/>
+                            <defs>
+                                <linearGradient id="csPrimeGrad" x1="0" y1="0" x2="1" y2="1">
+                                    <stop offset="0%" stop-color="#fef08a"/>
+                                    <stop offset="100%" stop-color="#eab308"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <span class="absolute bottom-1 font-display font-black text-amber-300 text-xs tracking-wider uppercase drop-shadow">
+                            CS2 PRIME KEY
+                        </span>
+                    </div>
+                `;
+            }
+
+            // 9. Steam: GTA V Premium Key (Los Santos Skyline & V Roman Numeral)
+            if (product.cardTheme === 'steam-gtav') {
+                return `
+                    <div class="w-full ${hClass} rounded-xl bg-gradient-to-b from-[#064e3b] via-[#047857] to-[#022c22] p-3 flex flex-col items-center justify-center relative overflow-hidden">
+                        <svg viewBox="0 0 180 130" class="w-full h-full drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)] z-10" fill="none">
+                            <!-- Classic green ornate dollar banner with giant V -->
+                            <rect x="35" y="30" width="110" height="70" rx="8" fill="#064e3b" stroke="#34d399" stroke-width="3"/>
+                            <text x="90" y="80" font-size="52" font-weight="900" fill="#facc15" text-anchor="middle" font-family="'Space Grotesk', Impact, sans-serif" stroke="#854d0e" stroke-width="2">V</text>
+                            <text x="90" y="44" font-size="9" font-weight="800" fill="#a7f3d0" text-anchor="middle" letter-spacing="3">GRAND THEFT AUTO</text>
+                        </svg>
+                        <span class="absolute bottom-1 font-display font-black text-emerald-300 text-xs tracking-wider uppercase drop-shadow">
+                            GTA V PREMIUM
+                        </span>
+                    </div>
+                `;
+            }
+
+            // 10. Steam: Red Dead Redemption 2 Key (Neon Sunset & Cowboy Art)
+            if (product.cardTheme === 'steam-rdr2') {
+                return `
+                    <div class="w-full ${hClass} rounded-xl bg-gradient-to-b from-[#7f1d1d] via-[#991b1b] to-[#18181b] p-3 flex flex-col items-center justify-center relative overflow-hidden">
+                        <svg viewBox="0 0 180 130" class="w-full h-full drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)] z-10" fill="none">
+                            <circle cx="90" cy="55" r="35" fill="#f97316" opacity="0.8"/>
+                            <text x="90" y="75" font-size="28" font-weight="900" fill="#fef08a" text-anchor="middle" font-family="'Space Grotesk', Impact, sans-serif" stroke="#b45309" stroke-width="2">RDR II</text>
+                            <text x="90" y="95" font-size="9" font-weight="800" fill="#fed7aa" text-anchor="middle" letter-spacing="2">RED DEAD REDEMPTION</text>
+                        </svg>
+                        <span class="absolute bottom-1 font-display font-black text-amber-300 text-xs tracking-wider uppercase drop-shadow">
+                            RDR 2 ROCKSTAR KEY
+                        </span>
+                    </div>
+                `;
+            }
+
+            // Generic Fallback
+            return `
+                <div class="w-full ${hClass} rounded-xl bg-dark-900 border border-dark-700 flex flex-col items-center justify-center relative">
+                    <span class="text-5xl">${product.iconEmoji}</span>
+                </div>
+            `;
+        }
+
+        // Format EUR price
+        function formatPrice(amountEUR) {
+            return `€${Number(amountEUR).toFixed(2)}`;
+        }
+
+        // Category & Subfilter Handlers
+        function setCategory(catKey) {
+            currentCategory = catKey;
+            
+            // Set default subfilter per category
+            if (catKey === 'fortnite') {
+                currentSubfilter = 'vbucks';
+            } else if (catKey === 'minecraft') {
+                currentSubfilter = 'accounts';
+            } else if (catKey === 'steam') {
+                currentSubfilter = 'keys';
+            }
+
+            // Apply entrance animation on category change
+            const grid = document.getElementById('products-grid');
+            if (grid) {
+                grid.classList.remove('neon-page-animate');
+                void grid.offsetWidth;
+                grid.classList.add('neon-page-animate');
+            }
+
+            // Update main category buttons style
+            ['fortnite', 'minecraft', 'steam'].forEach(k => {
+                const btn = document.getElementById(`cat-${k}`);
+                if (!btn) return;
+                if (k === catKey) {
+                    btn.className = 'cat-pill active px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition-all bg-neon-violet text-white shadow-lg shadow-neon-violet/20';
+                } else {
+                    btn.className = 'cat-pill px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition-all bg-dark-900 border border-dark-700 text-slate-300 hover:text-white hover:border-slate-500';
+                }
+            });
+
+            renderSubfilters();
+            renderProducts();
+        }
+
+        // ==========================================
+        // PAGE VIEW SWITCHER (HOME / CATALOG)
+        // ==========================================
+        function goToHomePage() {
+            closeProductView();
+            document.getElementById('catalog-view').classList.add('hidden');
+            const homeView = document.getElementById('home-view');
+            homeView.classList.remove('hidden');
+            homeView.classList.remove('neon-page-animate');
+            void homeView.offsetWidth;
+            homeView.classList.add('neon-page-animate');
+
+            // Update nav buttons
+            const homeBtn = document.getElementById('nav-btn-home');
+            const catBtn = document.getElementById('nav-btn-catalog');
+            if (homeBtn && catBtn) {
+                homeBtn.className = 'px-3.5 py-2 rounded-xl text-xs font-bold text-neon-cyan bg-dark-900 border border-dark-700 transition-colors';
+                catBtn.className = 'px-3.5 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-dark-900 transition-colors';
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            lucide.createIcons();
+        }
+
+        function goToCatalogPage() {
+            closeProductView();
+            document.getElementById('home-view').classList.add('hidden');
+            const catView = document.getElementById('catalog-view');
+            catView.classList.remove('hidden');
+            catView.classList.remove('neon-page-animate');
+            void catView.offsetWidth;
+            catView.classList.add('neon-page-animate');
+
+            // Update nav buttons
+            const homeBtn = document.getElementById('nav-btn-home');
+            const catBtn = document.getElementById('nav-btn-catalog');
+            if (homeBtn && catBtn) {
+                catBtn.className = 'px-3.5 py-2 rounded-xl text-xs font-bold text-neon-cyan bg-dark-900 border border-dark-700 transition-colors';
+                homeBtn.className = 'px-3.5 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-dark-900 transition-colors';
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            renderProducts();
+            lucide.createIcons();
+        }
+
+        function openCategoryFromHome(categoryKey) {
+            goToCatalogPage();
+            setCategory(categoryKey);
+        }
+
+        function setSubfilter(subKey) {
+            currentSubfilter = subKey;
+            renderSubfilters();
+            renderProducts();
+        }
+
+        function renderSubfilters() {
+            const container = document.getElementById('subfilters-container');
+            const titleEl = document.getElementById('active-category-title');
+
+            if (currentCategory === 'fortnite') {
+                const subfilters = [
+                    { key: 'vbucks', label: 'V-Bucks', emoji: '🪙' },
+                    { key: 'packs', label: 'Packs / Бъндли', emoji: '🎒' },
+                    { key: 'crew', label: 'Fortnite Crew', emoji: '⭐' }
+                ];
+                
+                const activeItem = subfilters.find(s => s.key === currentSubfilter) || subfilters[0];
+                titleEl.innerHTML = `<span class="text-white">Fortnite</span> <span class="text-white font-black">${activeItem.label}</span>`;
+
+                container.innerHTML = subfilters.map(sf => {
+                    const isActive = currentSubfilter === sf.key;
+                    const activeClasses = sf.key === 'vbucks' 
+                        ? 'bg-white/20 border-white text-white font-bold shadow-md shadow-white/10'
+                        : 'bg-neon-cyan/20 border-neon-cyan text-neon-cyan font-bold';
+                    const inactiveClasses = 'bg-dark-900 border-dark-700 text-slate-300 hover:text-white hover:border-slate-500';
+
+                    return `
+                        <button onclick="setSubfilter('${sf.key}')" class="px-3.5 py-1.5 rounded-lg border text-xs flex items-center gap-1.5 transition-colors ${isActive ? activeClasses : inactiveClasses}">
+                            <span>${sf.emoji}</span>
+                            <span class="${sf.key === 'vbucks' ? 'text-white' : ''}">${sf.label}</span>
+                        </button>
+                    `;
+                }).join('');
+            } else if (currentCategory === 'minecraft') {
+                titleEl.innerText = 'Minecraft Акаунти';
+                container.innerHTML = `
+                    <button class="px-3.5 py-1.5 rounded-lg border text-xs flex items-center gap-1.5 bg-neon-emerald/20 border-neon-emerald text-neon-emerald font-bold">
+                        <span>⛏️</span>
+                        <span>Minecraft Акаунти (Full Access)</span>
+                    </button>
+                `;
+            } else if (currentCategory === 'steam') {
+                titleEl.innerText = 'CD Keys';
+                container.innerHTML = `
+                    <button class="px-3.5 py-1.5 rounded-lg border text-xs flex items-center gap-1.5 bg-neon-pink/20 border-neon-pink text-neon-pink font-bold">
+                        <span>🔑</span>
+                        <span>CD Keys & Игри</span>
+                    </button>
+                `;
+            }
+        }
+
+        function handleSearch(val) {
+            searchQuery = val.trim().toLowerCase();
+            const clearBtn = document.getElementById('clear-search');
+            if (clearBtn) {
+                if (searchQuery.length > 0) {
+                    clearBtn.classList.remove('hidden');
+                } else {
+                    clearBtn.classList.add('hidden');
+                }
+            }
+            // If currently in Home view and search is triggered, automatically switch to Catalog
+            if (searchQuery.length > 0) {
+                const homeView = document.getElementById('home-view');
+                if (homeView && !homeView.classList.contains('hidden')) {
+                    goToCatalogPage();
+                }
+            }
+            renderProducts();
+        }
+
+        function clearSearch() {
+            searchQuery = '';
+            const desktopInput = document.getElementById('search-input');
+            const mobileInput = document.getElementById('search-input-mobile');
+            const clearBtn = document.getElementById('clear-search');
+
+            if (desktopInput) desktopInput.value = '';
+            if (mobileInput) mobileInput.value = '';
+            if (clearBtn) clearBtn.classList.add('hidden');
+
+            renderProducts();
+        }
+
+        function handleSort(val) {
+            currentSort = val;
+            renderProducts();
+        }
+
+        function resetFilters() {
+            searchQuery = '';
+            currentCategory = 'fortnite';
+            currentSubfilter = 'vbucks';
+            currentSort = 'featured';
+
+            const desktopInput = document.getElementById('search-input');
+            const mobileInput = document.getElementById('search-input-mobile');
+            const sortSelect = document.getElementById('sort-select');
+
+            if (desktopInput) desktopInput.value = '';
+            if (mobileInput) mobileInput.value = '';
+            if (sortSelect) sortSelect.value = 'featured';
+
+            setCategory('fortnite');
+        }
+
+        // Render Products with High-Detail Vector Art on Cards
+        function renderProducts() {
+            let list = products.filter(p => p.category === currentCategory);
+
+            // Filter Subfilter Tag within category
+            if (currentSubfilter) {
+                list = list.filter(p => p.subfilter === currentSubfilter);
+            }
+
+            // Filter Search Query
+            if (searchQuery) {
+                list = list.filter(p => 
+                    p.title.toLowerCase().includes(searchQuery) ||
+                    p.desc.toLowerCase().includes(searchQuery) ||
+                    p.gameBadge.toLowerCase().includes(searchQuery)
+                );
+            }
+
+            // Sort
+            if (currentSort === 'price-asc') {
+                list.sort((a, b) => a.priceEUR - b.priceEUR);
+            } else if (currentSort === 'price-desc') {
+                list.sort((a, b) => b.priceEUR - a.priceEUR);
+            } else if (currentSort === 'discount') {
+                list.sort((a, b) => (b.oldPriceEUR - b.priceEUR) - (a.oldPriceEUR - a.priceEUR));
+            }
+
+            // Update Counts
+            document.getElementById('results-count').innerText = `${list.length} артикула`;
+            document.getElementById('count-fortnite').innerText = products.filter(p => p.category === 'fortnite').length;
+            document.getElementById('count-minecraft').innerText = products.filter(p => p.category === 'minecraft').length;
+            document.getElementById('count-steam').innerText = products.filter(p => p.category === 'steam').length;
+
+            const grid = document.getElementById('products-grid');
+            const emptyState = document.getElementById('empty-state');
+
+            if (list.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            grid.innerHTML = list.map(prod => {
+                const discountPercent = Math.round(((prod.oldPriceEUR - prod.priceEUR) / prod.oldPriceEUR) * 100);
+                const savedCustomImage = localStorage.getItem(`custom_prod_img_${prod.id}`) || prod.imageUrl;
+
+                // Compute mock reviews count for realistic gaming marketplace look
+                const reviewsCount = 7 + (prod.id % 19);
+
+                // Image / Artwork block: exact tall vertical poster look with rounded corners
+                const artworkBlock = savedCustomImage ? `
+                    <div class="w-full aspect-[3/4] rounded-[24px] overflow-hidden bg-dark-900 border border-white/5 relative group-hover:border-neon-cyan/40 transition-colors">
+                        <img src="${savedCustomImage}" alt="${prod.title}" class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105" />
+                    </div>
+                ` : `
+                    <div class="w-full aspect-[3/4] rounded-[24px] overflow-hidden bg-dark-900 border border-white/5 relative group-hover:border-neon-cyan/40 transition-colors flex flex-col justify-between">
+                        ${generateProductCardArt(prod, false)}
+                    </div>
+                `;
+
+                return `
+                    <div onclick="openProductDetailView(${prod.id})" class="cursor-pointer group flex flex-col items-center text-center transition-transform duration-200 hover:-translate-y-1 product-card-glow">
+                        <!-- Poster Image Card Container -->
+                        <div class="relative w-full max-w-[280px]">
+                            ${artworkBlock}
+
+                            <!-- Bottom-Left Red Discount Badge (1:1 with screenshot: "33% OFF") -->
+                            <div class="absolute -bottom-2.5 left-0 z-20">
+                                <span class="bg-[#e11d48] text-white text-[12px] font-black px-2.5 py-1 rounded-[6px] tracking-wide font-sans shadow-lg shadow-rose-950/60 uppercase">
+                                    ${discountPercent}% OFF
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Centered Information Section underneath (1:1 with screenshot) -->
+                        <div class="mt-5 w-full flex flex-col items-center">
+                            <!-- Title -->
+                            <h3 class="font-display font-black text-lg sm:text-xl text-white group-hover:text-neon-cyan transition-colors tracking-tight">
+                                ${prod.title}
+                            </h3>
+
+                            <!-- Pill: В твоя акаунт -->
+                            <div class="mt-1.5">
+                                <span class="inline-block px-3 py-0.5 rounded-full bg-[#082f49]/80 border border-neon-cyan/40 text-[11px] font-bold text-neon-cyan tracking-wide">
+                                    В твоя акаунт
+                                </span>
+                            </div>
+
+                            <!-- Seller/Tag name -->
+                            <div class="mt-1 text-[11px] font-mono font-bold text-slate-400 tracking-wider uppercase">
+                                TRIUNITY
+                            </div>
+
+                            <!-- 5 Stars & Reviews count -->
+                            <div class="mt-1 flex items-center justify-center gap-1.5 text-neon-cyan">
+                                <div class="flex text-xs tracking-tighter">
+                                    ★ ★ ★ ★ ★
+                                </div>
+                                <span class="text-[11px] font-bold text-neon-cyan">
+                                    ${reviewsCount} ревюта
+                                </span>
+                            </div>
+
+                            <!-- Pricing (Cyan EUR + Strikethrough EUR) -->
+                            <div class="mt-2 flex items-baseline justify-center gap-2">
+                                <span class="font-display font-black text-xl text-neon-cyan tracking-tight">
+                                    ${formatPrice(prod.priceEUR)}
+                                </span>
+                                <span class="font-display font-normal text-xs text-slate-500 line-through">
+                                    ${formatPrice(prod.oldPriceEUR)}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            lucide.createIcons();
+        }
+
+        // ==========================================
+        // DEDICATED PRODUCT VIEW (MATCHING SCREENSHOT 1:1)
+        // ==========================================
+        function openProductDetailView(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const pdpPage = document.getElementById('product-detail-page');
+            const pdpContainer = document.getElementById('pdp-container');
+            const backLabel = document.getElementById('pdp-back-label');
+
+            const categoryLabels = {
+                'vbucks': '← Всички V-Bucks',
+                'packs': '← Всички Packs',
+                'crew': '← Всички Fortnite Crew',
+                'accounts': '← Всички Minecraft Акаунти',
+                'keys': '← Всички Rockstar Ключове'
+            };
+            backLabel.innerText = categoryLabels[product.subfilter] || '← Назад към каталога';
+
+            const discountPercent = Math.round(((product.oldPriceEUR - product.priceEUR) / product.oldPriceEUR) * 100);
+            
+            // Bulgarian Lev (BGN) equivalent calculations strictly mirroring the screenshot (e.g. 20.52 лв. 33.23 лв.)
+            const priceBGN = (product.priceEUR * 1.95583).toFixed(2);
+            const oldPriceBGN = (product.oldPriceEUR * 1.95583).toFixed(2);
+
+            const savedCustomImage = localStorage.getItem(`custom_prod_img_${product.id}`) || product.imageUrl;
+            const cardIllustration = generateProductCardArt(product, true);
+
+            // Left card content: if custom image exists, render the image as the entire card; otherwise show the default blue vector layout
+            const leftCardHTML = savedCustomImage ? `
+                <div class="relative w-full max-w-[420px]">
+                    <div class="absolute -top-3.5 left-2 z-20 flex items-center gap-2">
+                        <span class="bg-[#ef4444] text-white text-[13px] font-black px-3.5 py-1 rounded-[6px] tracking-wide font-sans shadow-lg inline-block">
+                            -${discountPercent}%
+                        </span>
+                    </div>
+                    ${cardIllustration}
+                </div>
+            ` : `
+                <div class="relative w-full max-w-[420px]">
+                    <!-- Top-left Discount Red Badge (Matching screenshot position & sharp rounded style) -->
+                    <div class="absolute -top-3.5 left-2 z-20 flex items-center gap-2">
+                        <span class="bg-[#ef4444] text-white text-[13px] font-black px-3.5 py-1 rounded-[6px] tracking-wide font-sans shadow-lg inline-block">
+                            -${discountPercent}%
+                        </span>
+                    </div>
+
+                    <!-- Main Rounded Card Frame -->
+                    <div class="w-full rounded-[34px] bg-gradient-to-b from-[#00a8ff] via-[#008be3] to-[#006cc7] p-7 pt-9 relative overflow-hidden flex flex-col justify-between shadow-[0_20px_50px_rgba(0,140,230,0.35)] min-h-[520px]">
+                        
+                        <!-- Header: Brand + Title -->
+                        <div class="text-center">
+                            <h2 class="font-display font-black text-4xl sm:text-[46px] text-white tracking-wider leading-none drop-shadow-[0_4px_12px_rgba(0,0,0,0.55)] uppercase" style="font-family: 'Space Grotesk', Impact, sans-serif;">
+                                ${product.category === 'fortnite' ? 'FORTNITE' : product.category.toUpperCase()}
+                            </h2>
+                            <h3 class="font-display font-black text-2xl sm:text-[26px] text-white tracking-wide leading-tight mt-1 drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]">
+                                ${product.title}
+                            </h3>
+                        </div>
+
+                        <!-- Center: High detail visual artwork for this specific product -->
+                        <div class="my-auto py-2 flex items-center justify-center">
+                            ${cardIllustration}
+                        </div>
+
+                        <!-- Bottom Rounded Banner: SUPPORTED DEVICES + Badge -->
+                        <div class="w-full bg-[#05589c]/90 backdrop-blur-sm rounded-[22px] px-5 py-3.5 border border-white/25 flex items-center justify-between">
+                            <div class="text-left">
+                                <div class="text-[10px] font-extrabold uppercase tracking-widest text-[#7dd3fc]">
+                                    SUPPORTED DEVICES
+                                </div>
+                                <div class="text-[11px] font-extrabold text-white tracking-tight leading-snug mt-0.5">
+                                    ${product.devicesText}
+                                </div>
+                            </div>
+                            <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-[#38bdf8] to-[#0284c7] p-0.5 shadow-md flex items-center justify-center shrink-0 ml-3">
+                                <div class="w-full h-full rounded-full bg-[#0369a1] flex items-center justify-center border border-white/40">
+                                    <span class="text-xs font-black text-white">V</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Construct exact 1:1 view matching the reference screenshot image_c08782.jpg
+            pdpContainer.innerHTML = `
+                <!-- LEFT COLUMN: Product Card / Graphic (Entire card image when set) -->
+                <div class="lg:col-span-5 flex justify-center w-full">
+                    ${leftCardHTML}
+                </div>
+
+                <!-- RIGHT COLUMN: Product Details & Actions (1:1 with reference) -->
+                <div class="lg:col-span-7 flex flex-col justify-start pt-1 lg:pl-4">
+                    
+                    <!-- Title (Heavy sans-serif, ~36-40px font size) -->
+                    <h1 class="text-3xl sm:text-4xl lg:text-[42px] font-black text-white tracking-tight leading-tight">
+                        ${product.title}
+                    </h1>
+
+                    <!-- Subtitle / Tagline directly under -->
+                    <div class="text-sm sm:text-base font-normal text-slate-300 mt-2">
+                        ${product.subtitle}
+                    </div>
+
+                    <!-- Paragraph description -->
+                    <p class="text-xs sm:text-[13.5px] text-slate-300 mt-4 leading-relaxed font-normal max-w-2xl">
+                        ${product.desc}
+                    </p>
+
+                    <!-- 3 Horizontal Pills with Checkmarks (1:1 match to screenshot) -->
+                    <div class="flex flex-wrap items-center gap-2 sm:gap-3 mt-6">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0a1120] border border-[#00d4ff]/40 text-xs text-white font-medium">
+                            <span class="text-[#00d4ff] text-xs font-bold">✓</span>
+                            <span>${product.pill1}</span>
+                        </div>
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0a1120] border border-[#00d4ff]/40 text-xs text-white font-medium">
+                            <span class="text-[#00d4ff] text-xs font-bold">✓</span>
+                            <span>${product.pill2}</span>
+                        </div>
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0a1120] border border-[#00d4ff]/40 text-xs text-white font-medium">
+                            <span class="text-[#00d4ff] text-xs font-bold">✓</span>
+                            <span>${product.pill3}</span>
+                        </div>
+                    </div>
+
+                    <!-- Price Section (Cyan EUR + Strikethrough + BGN line underneath) -->
+                    <div class="mt-7">
+                        <div class="flex items-baseline gap-3">
+                            <span class="font-sans font-black text-3xl sm:text-4xl text-[#00d4ff] tracking-tight">
+                                ${formatPrice(product.priceEUR)}
+                            </span>
+                            <span class="text-base line-through text-slate-400 font-sans font-normal">
+                                ${formatPrice(product.oldPriceEUR)}
+                            </span>
+                        </div>
+                        <div class="text-xs text-slate-400 mt-1 font-sans">
+                            <span class="font-medium text-slate-400">${priceBGN} лв.</span> 
+                            <span class="line-through text-slate-500 ml-1">${oldPriceBGN} лв.</span>
+                        </div>
+                    </div>
+
+                    <!-- "🛒 КУПИ СЕГА" Button (Exact screenshot match: vibrant cyan rounded-xl button) -->
+                    <div class="mt-6">
+                        <button onclick="handlePdpBuyNow(${product.id}, event)" class="w-full py-4 rounded-xl bg-[#00d4ff] hover:bg-[#00c2ea] active:scale-[0.99] transition-all text-[#04111d] font-black text-sm sm:text-base tracking-wider shadow-[0_4px_25px_rgba(0,212,255,0.4)] flex items-center justify-center gap-2.5 uppercase cursor-pointer buy-action-animate">
+                            <i data-lucide="shopping-cart" class="w-5 h-5 text-[#04111d] stroke-[2.5]"></i>
+                            <span class="font-black">КУПИ СЕГА</span>
+                        </button>
+                    </div>
+
+                    <!-- Accordions (🎁 Получаване, 💻 Как работи системата?, 🛡️ Гаранция) -->
+                    <div class="mt-7 space-y-3">
+                        
+                        <!-- Accordion 1: Получаване -->
+                        <div class="rounded-xl overflow-hidden bg-[#0a1120] border border-white/5 transition-all">
+                            <button onclick="togglePdpAccordion(this)" class="w-full px-5 py-4 flex items-center justify-between text-left text-xs sm:text-sm font-bold text-white hover:text-[#00d4ff] transition-colors">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-base">🎁</span>
+                                    <span>Получаване</span>
+                                </div>
+                                <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 transition-transform duration-200"></i>
+                            </button>
+                            <div class="accordion-body hidden px-5 pb-4 pt-1 text-xs text-slate-400 border-t border-white/5 leading-relaxed">
+                                ${product.deliveryInfo}
+                            </div>
+                        </div>
+
+                        <!-- Accordion 2: Как работи системата? -->
+                        <div class="rounded-xl overflow-hidden bg-[#0a1120] border border-white/5 transition-all">
+                            <button onclick="togglePdpAccordion(this)" class="w-full px-5 py-4 flex items-center justify-between text-left text-xs sm:text-sm font-bold text-white hover:text-[#00d4ff] transition-colors">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-base">💻</span>
+                                    <span>Как работи системата?</span>
+                                </div>
+                                <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 transition-transform duration-200"></i>
+                            </button>
+                            <div class="accordion-body hidden px-5 pb-4 pt-1 text-xs text-slate-400 border-t border-white/5 leading-relaxed">
+                                ${product.systemInfo}
+                            </div>
+                        </div>
+
+                        <!-- Accordion 3: Гаранция -->
+                        <div class="rounded-xl overflow-hidden bg-[#0a1120] border border-white/5 transition-all">
+                            <button onclick="togglePdpAccordion(this)" class="w-full px-5 py-4 flex items-center justify-between text-left text-xs sm:text-sm font-bold text-white hover:text-[#00d4ff] transition-colors">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-base">🛡️</span>
+                                    <span>Гаранция</span>
+                                </div>
+                                <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 transition-transform duration-200"></i>
+                            </button>
+                            <div class="accordion-body hidden px-5 pb-4 pt-1 text-xs text-slate-400 border-t border-white/5 leading-relaxed">
+                                ${product.warrantyInfo}
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            `;
+
+            pdpPage.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            lucide.createIcons();
+        }
+
+        function closeProductView() {
+            document.getElementById('product-detail-page').classList.add('hidden');
+        }
+
+        function togglePdpAccordion(btn) {
+            const container = btn.closest('div');
+            const body = container.querySelector('.accordion-body');
+            const icon = btn.querySelector('[data-lucide="chevron-down"]');
+
+            const isHidden = body.classList.contains('hidden');
+            if (isHidden) {
+                body.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+                container.classList.add('border-[#00d4ff]/40');
+            } else {
+                body.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+                container.classList.remove('border-[#00d4ff]/40');
+            }
+        }
+
+        function handlePdpBuyNow(productId, event) {
+            // Add custom button flash animation
+            const btn = event.currentTarget;
+            btn.classList.remove('buy-action-animate');
+            void btn.offsetWidth;
+            btn.classList.add('buy-action-animate');
+
+            quickAddToCart(productId, event);
+            closeProductView();
+            toggleCartDrawer(true);
+        }
+
+        // Cart Drawer Operations
+        function handleCartButtonClick() {
+            const btn = document.getElementById('main-cart-btn');
+            btn.classList.remove('cart-btn-click');
+            void btn.offsetWidth;
+            btn.classList.add('cart-btn-click');
+            toggleCartDrawer(true);
+        }
+
+        function toggleCartDrawer(open) {
+            const drawer = document.getElementById('cart-drawer');
+            const backdrop = document.getElementById('cart-backdrop');
+            const panel = document.getElementById('cart-panel');
+            const footer = document.getElementById('cart-drawer-footer');
+
+            if (open) {
+                drawer.classList.remove('invisible');
+                updateCartDrawerUI();
+
+                // Trigger smooth slide and backdrop blur fade
+                requestAnimationFrame(() => {
+                    backdrop.classList.remove('opacity-0');
+                    backdrop.classList.add('opacity-100');
+                    panel.classList.remove('translate-x-full');
+                    panel.classList.add('translate-x-0');
+                    
+                    if (footer) {
+                        footer.classList.remove('cart-footer-animate');
+                        void footer.offsetWidth;
+                        footer.classList.add('cart-footer-animate');
+                    }
+                });
+            } else {
+                backdrop.classList.remove('opacity-100');
+                backdrop.classList.add('opacity-0');
+                panel.classList.remove('translate-x-0');
+                panel.classList.add('translate-x-full');
+
+                // Hide container after slide transition completes
+                setTimeout(() => {
+                    drawer.classList.add('invisible');
+                }, 400);
+            }
+        }
+
+        // Fly-to-Cart and Toast Animation
+        function animateFlyToCart(sourceElement, productEmoji, productTitle) {
+            const cartBtn = document.getElementById('main-cart-btn');
+            if (!cartBtn) return;
+
+            // Compute starting coordinates
+            const startRect = sourceElement.getBoundingClientRect();
+            const endRect = cartBtn.getBoundingClientRect();
+
+            // Create flying element clone
+            const flyer = document.createElement('div');
+            flyer.className = 'flying-cart-item';
+            flyer.style.width = '48px';
+            flyer.style.height = '48px';
+            flyer.style.left = `${startRect.left + startRect.width / 2 - 24}px`;
+            flyer.style.top = `${startRect.top + startRect.height / 2 - 24}px`;
+            flyer.innerHTML = `<span style="font-size: 24px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));">${productEmoji}</span>`;
+            document.body.appendChild(flyer);
+
+            // Trigger animation in next frame
+            requestAnimationFrame(() => {
+                const targetX = (endRect.left + endRect.width / 2) - (startRect.left + startRect.width / 2);
+                const targetY = (endRect.top + endRect.height / 2) - (startRect.top + startRect.height / 2);
+
+                flyer.style.transform = `translate(${targetX}px, ${targetY}px) scale(0.3) rotate(360deg)`;
+                flyer.style.opacity = '0.3';
+            });
+
+            // On completion: remove element, bounce cart, pop badge
+            setTimeout(() => {
+                flyer.remove();
+
+                // Cart button bounce & glow
+                cartBtn.classList.remove('cart-bounce-active');
+                void cartBtn.offsetWidth; // Force reflow
+                cartBtn.classList.add('cart-bounce-active');
+
+                // Badge scale pop
+                const badge = document.getElementById('cart-badge');
+                badge.classList.remove('badge-pop-active');
+                void badge.offsetWidth;
+                badge.classList.add('badge-pop-active');
+            }, 650);
+        }
+
+        function quickAddToCart(productId, eventRef) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const existing = cart.find(item => item.id === productId);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    title: product.title,
+                    priceEUR: product.priceEUR,
+                    iconEmoji: product.iconEmoji,
+                    quantity: 1
+                });
+            }
+
+            updateCartBadge();
+            
+            // Trigger animation if initiated by user click
+            const triggerEl = eventRef?.currentTarget || (window.event ? window.event.currentTarget : null);
+            if (triggerEl) {
+                triggerEl.classList.remove('buy-action-animate');
+                void triggerEl.offsetWidth;
+                triggerEl.classList.add('buy-action-animate');
+                animateFlyToCart(triggerEl, product.iconEmoji, product.title);
+            }
+        }
+
+        function changeQuantity(productId, delta) {
+            const item = cart.find(i => i.id === productId);
+            if (!item) return;
+            item.quantity += delta;
+            if (item.quantity <= 0) {
+                cart = cart.filter(i => i.id !== productId);
+            }
+            updateCartBadge();
+            updateCartDrawerUI();
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(i => i.id !== productId);
+            updateCartBadge();
+            updateCartDrawerUI();
+        }
+
+        function updateCartBadge() {
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-badge').innerText = totalCount;
+            document.getElementById('drawer-item-count').innerText = `${totalCount} бр.`;
+        }
+
+        function updateCartDrawerUI() {
+            const container = document.getElementById('cart-items-container');
+            const subtotalEl = document.getElementById('drawer-subtotal');
+            const totalEl = document.getElementById('drawer-total');
+            const discountRow = document.getElementById('discount-row');
+            const checkoutBtn = document.getElementById('btn-proceed-checkout');
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-slate-500 cart-item-animate">
+                        <i data-lucide="shopping-bag" class="w-10 h-10 mx-auto mb-2 text-slate-600"></i>
+                        <p class="text-xs uppercase font-mono">Количката ти е празна</p>
+                    </div>
+                `;
+                subtotalEl.innerText = formatPrice(0);
+                totalEl.innerText = formatPrice(0);
+                discountRow.classList.add('hidden');
+                checkoutBtn.disabled = true;
+                lucide.createIcons();
+                return;
+            }
+
+            checkoutBtn.disabled = false;
+            let subtotalEUR = 0;
+
+            container.innerHTML = cart.map((item, index) => {
+                const itemTotalEUR = item.priceEUR * item.quantity;
+                subtotalEUR += itemTotalEUR;
+                const delay = (index * 0.06).toFixed(2);
+
+                return `
+                    <div class="flex items-center justify-between p-3 rounded-xl bg-dark-900 border border-dark-700 cart-item-animate" style="animation-delay: ${delay}s">
+                        <div class="flex items-center gap-3">
+                            <span class="text-2xl">${item.iconEmoji}</span>
+                            <div>
+                                <h4 class="text-xs font-bold text-white line-clamp-1">${item.title}</h4>
+                                <span class="text-[11px] font-mono text-neon-cyan">${formatPrice(item.priceEUR)}</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <div class="flex items-center border border-dark-700 rounded-lg bg-dark-950">
+                                <button onclick="changeQuantity(${item.id}, -1)" class="px-2 py-0.5 text-xs text-slate-400 hover:text-white">-</button>
+                                <span class="px-1.5 text-xs font-mono font-bold text-white">${item.quantity}</span>
+                                <button onclick="changeQuantity(${item.id}, 1)" class="px-2 py-0.5 text-xs text-slate-400 hover:text-white">+</button>
+                            </div>
+                            <button onclick="removeFromCart(${item.id})" class="text-slate-500 hover:text-red-400 p-1">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            discountRow.classList.add('hidden');
+            subtotalEl.innerText = formatPrice(subtotalEUR);
+            totalEl.innerText = formatPrice(subtotalEUR);
+
+            lucide.createIcons();
+        }
+
+        // Product Modal (Details View)
+        function openProductModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const modalContent = document.getElementById('modal-content');
+            modalContent.innerHTML = `
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-3xl">${product.iconEmoji}</span>
+                    <div>
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${product.badgeColor}">
+                            ${product.gameBadge}
+                        </span>
+                        <h3 class="text-base font-bold text-white mt-1">${product.title}</h3>
+                    </div>
+                </div>
+
+                <div class="bg-dark-950 p-3.5 rounded-xl border border-dark-700 text-xs text-slate-300 space-y-2 mb-4">
+                    <p class="leading-relaxed">${product.desc}</p>
+                    <div class="pt-2 border-t border-dark-800">
+                        <span class="text-[11px] font-mono text-neon-cyan uppercase font-bold block mb-1">📋 Начин на активиране:</span>
+                        <p class="text-[11px] text-slate-400 font-mono">${product.instructions}</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <span class="text-xs text-slate-400 block">Крайна цена:</span>
+                        <span class="text-xl font-mono font-bold text-neon-cyan">${formatPrice(product.priceEUR)}</span>
+                        <span class="text-xs line-through text-slate-500 ml-1 font-mono">${formatPrice(product.oldPriceEUR)}</span>
+                    </div>
+                    <span class="text-xs text-neon-emerald font-semibold flex items-center gap-1">
+                        <i data-lucide="check-circle" class="w-4 h-4"></i> ${product.deliveryTag}
+                    </span>
+                </div>
+
+                <div class="flex gap-2">
+                    <button onclick="quickAddToCart(${product.id}, event); closeProductModal();" class="flex-1 py-3 bg-gradient-to-r from-neon-violet to-neon-cyan hover:opacity-95 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                        <span>Добави в Количката</span>
+                    </button>
+                </div>
+            `;
+
+            document.getElementById('product-modal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+        }
+
+        // Checkout Modal
+        function openCheckoutModal() {
+            toggleCartDrawer(false);
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            let subtotalEUR = cart.reduce((sum, item) => sum + (item.priceEUR * item.quantity), 0);
+
+            document.getElementById('checkout-summary-items').innerText = `${totalCount} бр.`;
+            document.getElementById('checkout-summary-total').innerText = formatPrice(subtotalEUR);
+
+            document.getElementById('checkout-modal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+        }
+
+        // Checkout Submit Simulation
+        function handleCheckoutSubmit(e) {
+            e.preventDefault();
+            const email = document.getElementById('customer-email').value;
+            const selectedPaymentRadio = document.querySelector('input[name="payment-method"]:checked');
+            const paymentMethod = selectedPaymentRadio ? selectedPaymentRadio.value : 'Revolut';
+
+            // Generate random order ID
+            const orderId = `#CK-${Math.floor(10000 + Math.random() * 90000)}`;
+            const orderIdEl = document.getElementById('success-order-id');
+            if (orderIdEl) orderIdEl.innerText = orderId;
+
+            const paymentMethodEl = document.getElementById('success-payment-method');
+            if (paymentMethodEl) paymentMethodEl.innerText = paymentMethod;
+
+            const keysContainer = document.getElementById('success-keys-container');
+
+            // Show payment specific instructions (Revolut / EasyPay / Card)
+            const revolutBox = document.getElementById('revolut-details-box');
+            const easyPayBox = document.getElementById('easypay-iban-box');
+            const cardBox = document.getElementById('card-details-box');
+
+            if (revolutBox) {
+                if (paymentMethod === 'Revolut') {
+                    revolutBox.classList.remove('hidden');
+                } else {
+                    revolutBox.classList.add('hidden');
+                }
+            }
+
+            if (easyPayBox) {
+                if (paymentMethod === 'EasyPay') {
+                    easyPayBox.classList.remove('hidden');
+                } else {
+                    easyPayBox.classList.add('hidden');
+                }
+            }
+
+            if (cardBox) {
+                if (paymentMethod === 'Card') {
+                    cardBox.classList.remove('hidden');
+
+                    const cardPaymentUrl = `https://revolut.me/kostadink87`;
+                    const cardPayBtn = document.getElementById('card-pay-direct-btn');
+                    const cardLinkPreview = document.getElementById('card-link-preview');
+
+                    if (cardPayBtn) cardPayBtn.href = cardPaymentUrl;
+                    if (cardLinkPreview) {
+                        cardLinkPreview.innerText = cardPaymentUrl;
+                    }
+
+                    // Automatically open payment link in a new window/tab for seamless flow
+                    window.open(cardPaymentUrl, '_blank');
+                } else {
+                    cardBox.classList.add('hidden');
+                }
+            }
+
+            const keysBox = document.getElementById('generated-keys-box');
+            const manualPaymentBox = document.getElementById('manual-payment-info-box');
+
+            // Ако плащането е с Revolut, EasyPay или Card, показваме стъпките за Discord билет и потвърждение
+            if (paymentMethod === 'Revolut' || paymentMethod === 'EasyPay' || paymentMethod === 'Card') {
+                if (keysBox) keysBox.classList.add('hidden');
+                if (manualPaymentBox) manualPaymentBox.classList.remove('hidden');
+            } else {
+                if (keysBox) keysBox.classList.remove('hidden');
+                if (manualPaymentBox) manualPaymentBox.classList.add('hidden');
+
+                // Generate representative codes/passwords for Steam and Minecraft products (при директна карта)
+                const instantDeliveryItems = cart.filter(item => {
+                    const fullProd = products.find(p => p.id === item.id);
+                    return fullProd && (fullProd.category === 'steam' || fullProd.category === 'minecraft');
+                });
+
+                if (instantDeliveryItems.length > 0) {
+                    keysContainer.innerHTML = instantDeliveryItems.map(item => {
+                        const fullProd = products.find(p => p.id === item.id);
+                        const isSteam = fullProd && fullProd.category === 'steam';
+
+                        if (isSteam) {
+                            const part1 = Math.random().toString(36).substring(2, 7).toUpperCase();
+                            const part2 = Math.random().toString(36).substring(2, 7).toUpperCase();
+                            const part3 = Math.random().toString(36).substring(2, 7).toUpperCase();
+                            const steamKey = `${part1}-${part2}-${part3}`;
+
+                            return `
+                                <div class="py-1.5 border-b border-dark-800 last:border-b-0">
+                                    <div class="text-[11px] text-slate-400 font-bold flex items-center justify-between">
+                                        <span>${item.title}</span>
+                                        <span class="text-[10px] text-neon-pink font-mono uppercase bg-neon-pink/10 px-1.5 py-0.2 rounded border border-neon-pink/30">Steam Key</span>
+                                    </div>
+                                    <div class="text-neon-cyan font-mono font-bold select-all tracking-wider text-xs sm:text-sm mt-0.5">${steamKey}</div>
+                                </div>
+                            `;
+                        } else {
+                            const randomUsername = `mc_${Math.random().toString(36).substring(2, 7)}`;
+                            const randomPass = `Triunity!${Math.floor(1000 + Math.random() * 9000)}`;
+                            const accountData = `${randomUsername}@outlook.com : ${randomPass}`;
+
+                            return `
+                                <div class="py-1.5 border-b border-dark-800 last:border-b-0">
+                                    <div class="text-[11px] text-slate-400 font-bold flex items-center justify-between">
+                                        <span>${item.title}</span>
+                                        <span class="text-[10px] text-neon-emerald font-mono uppercase bg-neon-emerald/10 px-1.5 py-0.2 rounded border border-neon-emerald/30">Minecraft FA</span>
+                                    </div>
+                                    <div class="text-neon-cyan font-mono font-bold select-all tracking-wider text-xs sm:text-sm mt-0.5">${accountData}</div>
+                                    <div class="text-[10px] text-slate-500 mt-0.5">Влезте в login.live.com и сменете паролата и имейла за сигурност.</div>
+                                </div>
+                            `;
+                        }
+                    }).join('');
+                } else {
+                    keysContainer.innerHTML = `
+                        <div class="py-2 text-center text-slate-400 text-xs">
+                            <i data-lucide="info" class="w-4 h-4 mx-auto mb-1 text-neon-cyan"></i>
+                            <span>Поръчката за Fortnite се изпълнява директно през Discord Ticket чрез gifting системата.</span>
+                        </div>
+                    `;
+                }
+            }
+
+            // Empty cart
+            cart = [];
+            updateCartBadge();
+
+            closeCheckoutModal();
+            document.getElementById('order-success-modal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('order-success-modal').classList.add('hidden');
+        }
+
+        function copyOrderId() {
+            const orderId = document.getElementById('success-order-id').innerText;
+            copyTextToClipboard(orderId, 'copy-order-id-label');
+        }
+
+        function copyTextToClipboard(textToCopy, labelElementId) {
+            const tempInput = document.createElement('input');
+            tempInput.value = textToCopy;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            const btnLabel = document.getElementById(labelElementId);
+            if (btnLabel) {
+                const originalText = btnLabel.innerText;
+                btnLabel.innerText = 'Копирано!';
+                setTimeout(() => {
+                    btnLabel.innerText = originalText;
+                }, 2000);
+            }
+        }
+
+        function copyEasyPayIban() {
+            copyTextToClipboard('LT60 3250 0139 8059 4051', 'copy-iban-btn-label');
+        }
+
+        // FAQ accordion
+        function toggleFaq(el) {
+            const content = el.querySelector('.faq-content');
+            const icon = el.querySelector('[data-lucide="chevron-down"]');
+            content.classList.toggle('hidden');
+            if (content.classList.contains('hidden')) {
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // Initialize on DOM Ready
+        window.addEventListener('DOMContentLoaded', () => {
+            renderSubfilters();
+            renderProducts();
+            goToHomePage();
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
